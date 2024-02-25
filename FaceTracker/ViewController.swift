@@ -9,7 +9,7 @@ import ARKit
 import SpriteKit
 import UIKit
 
-class ViewController: UIViewController, ARSKViewDelegate {
+class ViewController: UIViewController {
     @IBOutlet var sceneView: ARSKView!
 
     override func viewDidLoad() {
@@ -44,9 +44,11 @@ class ViewController: UIViewController, ARSKViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+}
 
-    // MARK: - ARSKViewDelegate
+// MARK: - ARSKViewDelegate
 
+extension ViewController: ARSKViewDelegate {
     func view(_: ARSKView, nodeFor _: ARAnchor) -> SKNode? {
         // Create and configure a node for the anchor added to the view's session.
         let labelNode = SKLabelNode(text: "👾")

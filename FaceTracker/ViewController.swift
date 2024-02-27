@@ -49,12 +49,48 @@ class ViewController: UIViewController {
 // MARK: - ARSKViewDelegate
 
 extension ViewController: ARSKViewDelegate {
-    func view(_: ARSKView, nodeFor _: ARAnchor) -> SKNode? {
+    func view(_: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
         // Create and configure a node for the anchor added to the view's session.
-        let labelNode = SKLabelNode(text: "👾")
-        labelNode.horizontalAlignmentMode = .center
-        labelNode.verticalAlignmentMode = .center
-        return labelNode
+        if let faceAnchor = anchor as? ARFaceAnchor {
+            // Create a node for the face anchor
+            let faceNode = SKShapeNode()
+
+            let eyeNode = SKLabelNode(text: "👁")
+            // use the faceAnchor to get the position of the eyes
+            let leftEyePosition = faceAnchor.leftEyeTransform.columns.3
+            let rightEyePosition = faceAnchor.rightEyeTransform.columns.3
+            eyeNode.position = CGPoint(x: CGFloat(leftEyePosition.x), y: CGFloat(-leftEyePosition.y))
+            faceNode.addChild(eyeNode)
+
+            // use a cheese emohi for the right eye
+            let rightEyeNode = SKLabelNode(text: "🧀")
+            rightEyeNode.position = CGPoint(x: CGFloat(rightEyePosition.x), y: CGFloat(-rightEyePosition.y))
+            faceNode.addChild(rightEyeNode)
+
+            return faceNode
+        } else {
+            // if it is not a face: add a label node on the anchor
+            let labelNode = SKLabelNode(text: "🤖")
+            labelNode.horizontalAlignmentMode = .center
+            labelNode.verticalAlignmentMode = .center
+            return labelNode
+        }
+    }
+
+    func view(_: ARSKView, didUpdate node: SKNode, for anchor: ARAnchor) {
+        // This method is called when a new node has been mapped to the given anchor.
+        if let faceAnchor = anchor as? ARFaceAnchor {
+            // Update the node for the face anchor
+            if let faceNode = node as? SKShapeNode {
+                let eyeNode = faceNode.children[0] as! SKLabelNode
+                let leftEyePosition = faceAnchor.leftEyeTransform.columns.3
+                eyeNode.position = CGPoint(x: CGFloat(leftEyePosition.x), y: CGFloat(-leftEyePosition.y))
+
+                let rightEyeNode = faceNode.children[1] as! SKLabelNode
+                let rightEyePosition = faceAnchor.rightEyeTransform.columns.3
+                rightEyeNode.position = CGPoint(x: CGFloat(rightEyePosition.x), y: CGFloat(-rightEyePosition.y))
+            }
+        }
     }
 
     func session(_: ARSession, didFailWithError _: Error) {

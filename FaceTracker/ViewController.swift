@@ -6,26 +6,29 @@
 //
 
 import ARKit
+import SceneKit
 import SpriteKit
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet var sceneView: ARSKView!
+    @IBOutlet var sceneView: ARSCNView!
+
+    private let axesUrl = Bundle.main.url(forResource: "axes", withExtension: "scn")!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Set the view's delegate
-        sceneView.delegate = self
+        // sceneView.delegate = self
+        sceneView.session.delegate = self
 
-        // Show statistics such as fps and node count
-        sceneView.showsFPS = true
-        sceneView.showsNodeCount = true
+        // Show statistics such as fps and timing information
+        // sceneView.showsStatistics = true
 
-        // Load the SKScene from 'Scene.sks'
-        if let scene = SKScene(fileNamed: "Scene") {
-            sceneView.presentScene(scene)
-        }
+        // Set the scene to the view
+        sceneView.scene = SCNScene()
+        //
+        // print("Face tracking is supported: \(ARFaceTrackingConfiguration.isSupported)")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +37,6 @@ class ViewController: UIViewController {
         guard ARFaceTrackingConfiguration.isSupported else {
             // TODO: add pop up to inform the user
             fatalError("Face tracking is not supported on this device")
-            return
         }
 
         // Create a session configuration
@@ -56,55 +58,46 @@ class ViewController: UIViewController {
     }
 }
 
+// MARK: - ARSCNViewDelegate
+
+extension ViewController: ARSCNViewDelegate {
+    func renderer(_: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+        // Create and configure a node for the anchor added to the view's session.
+
+        if let faceAnchor = anchor as? ARFaceAnchor {
+            let node = FaceNode(url: axesUrl)
+            node.update(with: faceAnchor)
+            return node
+        }
+
+        // if it is not a face: add a box on the anchor
+        let node = SCNNode()
+        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
+        return node
+    }
+
+    func renderer(_: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let faceNode = node as? FaceNode,
+              let faceAnchor = anchor as? ARFaceAnchor
+        else {
+            return
+        }
+
+        faceNode.update(with: faceAnchor)
+    }
+}
+
 // MARK: - ARSKViewDelegate
 
-extension ViewController: ARSKViewDelegate {
-    func view(_: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
-        // Create and configure a node for the anchor added to the view's session.
-        if let faceAnchor = anchor as? ARFaceAnchor {
-            // Create a node for the face anchor
-            let faceNode = SKShapeNode()
-
-            let eyeNode = SKLabelNode(text: "👁")
-            // use the faceAnchor to get the position of the eyes
-            let leftEyePosition = faceAnchor.leftEyeTransform.columns.3
-            let rightEyePosition = faceAnchor.rightEyeTransform.columns.3
-            eyeNode.position = CGPoint(x: CGFloat(leftEyePosition.x), y: CGFloat(-leftEyePosition.y))
-            faceNode.addChild(eyeNode)
-
-            // use a cheese emohi for the right eye
-            let rightEyeNode = SKLabelNode(text: "🧀")
-            rightEyeNode.position = CGPoint(x: CGFloat(rightEyePosition.x), y: CGFloat(-rightEyePosition.y))
-            faceNode.addChild(rightEyeNode)
-
-            return faceNode
-        } else {
-            // if it is not a face: add a label node on the anchor
-            let labelNode = SKLabelNode(text: "🤖")
-            labelNode.horizontalAlignmentMode = .center
-            labelNode.verticalAlignmentMode = .center
-            return labelNode
-        }
-    }
-
-    func view(_: ARSKView, didUpdate node: SKNode, for anchor: ARAnchor) {
-        // This method is called when a new node has been mapped to the given anchor.
-        if let faceAnchor = anchor as? ARFaceAnchor {
-            // Update the node for the face anchor
-            if let faceNode = node as? SKShapeNode {
-                let eyeNode = faceNode.children[0] as! SKLabelNode
-                let leftEyePosition = faceAnchor.leftEyeTransform.columns.3
-                eyeNode.position = CGPoint(x: CGFloat(leftEyePosition.x), y: CGFloat(-leftEyePosition.y))
-
-                let rightEyeNode = faceNode.children[1] as! SKLabelNode
-                let rightEyePosition = faceAnchor.rightEyeTransform.columns.3
-                rightEyeNode.position = CGPoint(x: CGFloat(rightEyePosition.x), y: CGFloat(-rightEyePosition.y))
-            }
-        }
-    }
-
-    func session(_: ARSession, didFailWithError _: Error) {
+extension ViewController: ARSessionDelegate {
+    func session(_: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
+        guard let error = error as? ARError else {
+            return
+        }
+
+        let errorWithInfo = "An error occurred: \(error.localizedDescription)"
+        print(errorWithInfo)
     }
 
     func sessionWasInterrupted(_: ARSession) {

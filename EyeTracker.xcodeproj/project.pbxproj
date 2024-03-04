@@ -7,65 +7,65 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E5A7FAB2B8B84E500A0D76A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A7FAA2B8B84E500A0D76A /* AppDelegate.swift */; };
-		0E5A7FAD2B8B84E500A0D76A /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0E5A7FAC2B8B84E500A0D76A /* Scene.sks */; };
-		0E5A7FAF2B8B84E500A0D76A /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A7FAE2B8B84E500A0D76A /* Scene.swift */; };
-		0E5A7FB12B8B84E500A0D76A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A7FB02B8B84E500A0D76A /* ViewController.swift */; };
-		0E5A7FB42B8B84E500A0D76A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E5A7FB22B8B84E500A0D76A /* Main.storyboard */; };
-		0E5A7FB62B8B84E700A0D76A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E5A7FB52B8B84E700A0D76A /* Assets.xcassets */; };
-		0E5A7FC02B8B84E800A0D76A /* FaceTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A7FBF2B8B84E800A0D76A /* FaceTrackerTests.swift */; };
-		0E5A7FCA2B8B84E800A0D76A /* FaceTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A7FC92B8B84E800A0D76A /* FaceTrackerUITests.swift */; };
-		0E5A7FCC2B8B84E800A0D76A /* FaceTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E5A7FCB2B8B84E800A0D76A /* FaceTrackerUITestsLaunchTests.swift */; };
+		0E1BD29F2B96256400D44FED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1BD29E2B96256400D44FED /* AppDelegate.swift */; };
+		0E1BD2A12B96256400D44FED /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BD2A02B96256400D44FED /* art.scnassets */; };
+		0E1BD2A32B96256400D44FED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1BD2A22B96256400D44FED /* ViewController.swift */; };
+		0E1BD2A62B96256400D44FED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BD2A42B96256400D44FED /* Main.storyboard */; };
+		0E1BD2A82B96256600D44FED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E1BD2A72B96256600D44FED /* Assets.xcassets */; };
+		0E1BD2B22B96256600D44FED /* EyeTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1BD2B12B96256600D44FED /* EyeTrackerTests.swift */; };
+		0E1BD2BC2B96256600D44FED /* EyeTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1BD2BB2B96256600D44FED /* EyeTrackerUITests.swift */; };
+		0E1BD2BE2B96256600D44FED /* EyeTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1BD2BD2B96256600D44FED /* EyeTrackerUITestsLaunchTests.swift */; };
+		0E1BD2CB2B96289F00D44FED /* FaceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1BD2CA2B96289F00D44FED /* FaceNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		0E5A7FBC2B8B84E800A0D76A /* PBXContainerItemProxy */ = {
+		0E1BD2AE2B96256600D44FED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0E5A7F9F2B8B84E500A0D76A /* Project object */;
+			containerPortal = 0E1BD2932B96256400D44FED /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0E5A7FA62B8B84E500A0D76A;
-			remoteInfo = FaceTracker;
+			remoteGlobalIDString = 0E1BD29A2B96256400D44FED;
+			remoteInfo = EyeTracker;
 		};
-		0E5A7FC62B8B84E800A0D76A /* PBXContainerItemProxy */ = {
+		0E1BD2B82B96256600D44FED /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 0E5A7F9F2B8B84E500A0D76A /* Project object */;
+			containerPortal = 0E1BD2932B96256400D44FED /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 0E5A7FA62B8B84E500A0D76A;
-			remoteInfo = FaceTracker;
+			remoteGlobalIDString = 0E1BD29A2B96256400D44FED;
+			remoteInfo = EyeTracker;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0E5A7FA72B8B84E500A0D76A /* FaceTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FaceTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E5A7FAA2B8B84E500A0D76A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0E5A7FAC2B8B84E500A0D76A /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
-		0E5A7FAE2B8B84E500A0D76A /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
-		0E5A7FB02B8B84E500A0D76A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0E5A7FB32B8B84E500A0D76A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0E5A7FB52B8B84E700A0D76A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		0E5A7FBB2B8B84E800A0D76A /* FaceTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaceTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E5A7FBF2B8B84E800A0D76A /* FaceTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceTrackerTests.swift; sourceTree = "<group>"; };
-		0E5A7FC52B8B84E800A0D76A /* FaceTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FaceTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E5A7FC92B8B84E800A0D76A /* FaceTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceTrackerUITests.swift; sourceTree = "<group>"; };
-		0E5A7FCB2B8B84E800A0D76A /* FaceTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0E1BD29B2B96256400D44FED /* EyeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E1BD29E2B96256400D44FED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0E1BD2A02B96256400D44FED /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		0E1BD2A22B96256400D44FED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0E1BD2A52B96256400D44FED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0E1BD2A72B96256600D44FED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0E1BD2AD2B96256600D44FED /* EyeTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EyeTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E1BD2B12B96256600D44FED /* EyeTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeTrackerTests.swift; sourceTree = "<group>"; };
+		0E1BD2B72B96256600D44FED /* EyeTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EyeTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E1BD2BB2B96256600D44FED /* EyeTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeTrackerUITests.swift; sourceTree = "<group>"; };
+		0E1BD2BD2B96256600D44FED /* EyeTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0E1BD2CA2B96289F00D44FED /* FaceNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FaceNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		0E5A7FA42B8B84E500A0D76A /* Frameworks */ = {
+		0E1BD2982B96256400D44FED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0E5A7FB82B8B84E800A0D76A /* Frameworks */ = {
+		0E1BD2AA2B96256600D44FED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0E5A7FC22B8B84E800A0D76A /* Frameworks */ = {
+		0E1BD2B42B96256600D44FED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -75,136 +75,136 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0E5A7F9E2B8B84E500A0D76A = {
+		0E1BD2922B96256400D44FED = {
 			isa = PBXGroup;
 			children = (
-				0E5A7FA92B8B84E500A0D76A /* FaceTracker */,
-				0E5A7FBE2B8B84E800A0D76A /* FaceTrackerTests */,
-				0E5A7FC82B8B84E800A0D76A /* FaceTrackerUITests */,
-				0E5A7FA82B8B84E500A0D76A /* Products */,
+				0E1BD29D2B96256400D44FED /* EyeTracker */,
+				0E1BD2B02B96256600D44FED /* EyeTrackerTests */,
+				0E1BD2BA2B96256600D44FED /* EyeTrackerUITests */,
+				0E1BD29C2B96256400D44FED /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		0E5A7FA82B8B84E500A0D76A /* Products */ = {
+		0E1BD29C2B96256400D44FED /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0E5A7FA72B8B84E500A0D76A /* FaceTracker.app */,
-				0E5A7FBB2B8B84E800A0D76A /* FaceTrackerTests.xctest */,
-				0E5A7FC52B8B84E800A0D76A /* FaceTrackerUITests.xctest */,
+				0E1BD29B2B96256400D44FED /* EyeTracker.app */,
+				0E1BD2AD2B96256600D44FED /* EyeTrackerTests.xctest */,
+				0E1BD2B72B96256600D44FED /* EyeTrackerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0E5A7FA92B8B84E500A0D76A /* FaceTracker */ = {
+		0E1BD29D2B96256400D44FED /* EyeTracker */ = {
 			isa = PBXGroup;
 			children = (
-				0E5A7FAA2B8B84E500A0D76A /* AppDelegate.swift */,
-				0E5A7FAC2B8B84E500A0D76A /* Scene.sks */,
-				0E5A7FAE2B8B84E500A0D76A /* Scene.swift */,
-				0E5A7FB02B8B84E500A0D76A /* ViewController.swift */,
-				0E5A7FB22B8B84E500A0D76A /* Main.storyboard */,
-				0E5A7FB52B8B84E700A0D76A /* Assets.xcassets */,
+				0E1BD2CA2B96289F00D44FED /* FaceNode.swift */,
+				0E1BD29E2B96256400D44FED /* AppDelegate.swift */,
+				0E1BD2A02B96256400D44FED /* art.scnassets */,
+				0E1BD2A22B96256400D44FED /* ViewController.swift */,
+				0E1BD2A42B96256400D44FED /* Main.storyboard */,
+				0E1BD2A72B96256600D44FED /* Assets.xcassets */,
 			);
-			path = FaceTracker;
+			path = EyeTracker;
 			sourceTree = "<group>";
 		};
-		0E5A7FBE2B8B84E800A0D76A /* FaceTrackerTests */ = {
+		0E1BD2B02B96256600D44FED /* EyeTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				0E5A7FBF2B8B84E800A0D76A /* FaceTrackerTests.swift */,
+				0E1BD2B12B96256600D44FED /* EyeTrackerTests.swift */,
 			);
-			path = FaceTrackerTests;
+			path = EyeTrackerTests;
 			sourceTree = "<group>";
 		};
-		0E5A7FC82B8B84E800A0D76A /* FaceTrackerUITests */ = {
+		0E1BD2BA2B96256600D44FED /* EyeTrackerUITests */ = {
 			isa = PBXGroup;
 			children = (
-				0E5A7FC92B8B84E800A0D76A /* FaceTrackerUITests.swift */,
-				0E5A7FCB2B8B84E800A0D76A /* FaceTrackerUITestsLaunchTests.swift */,
+				0E1BD2BB2B96256600D44FED /* EyeTrackerUITests.swift */,
+				0E1BD2BD2B96256600D44FED /* EyeTrackerUITestsLaunchTests.swift */,
 			);
-			path = FaceTrackerUITests;
+			path = EyeTrackerUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0E5A7FA62B8B84E500A0D76A /* FaceTracker */ = {
+		0E1BD29A2B96256400D44FED /* EyeTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0E5A7FCF2B8B84E800A0D76A /* Build configuration list for PBXNativeTarget "FaceTracker" */;
+			buildConfigurationList = 0E1BD2C12B96256600D44FED /* Build configuration list for PBXNativeTarget "EyeTracker" */;
 			buildPhases = (
-				0E5A7FA32B8B84E500A0D76A /* Sources */,
-				0E5A7FA42B8B84E500A0D76A /* Frameworks */,
-				0E5A7FA52B8B84E500A0D76A /* Resources */,
+				0E1BD2972B96256400D44FED /* Sources */,
+				0E1BD2982B96256400D44FED /* Frameworks */,
+				0E1BD2992B96256400D44FED /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = FaceTracker;
-			productName = FaceTracker;
-			productReference = 0E5A7FA72B8B84E500A0D76A /* FaceTracker.app */;
+			name = EyeTracker;
+			productName = EyeTracker;
+			productReference = 0E1BD29B2B96256400D44FED /* EyeTracker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		0E5A7FBA2B8B84E800A0D76A /* FaceTrackerTests */ = {
+		0E1BD2AC2B96256600D44FED /* EyeTrackerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0E5A7FD22B8B84E800A0D76A /* Build configuration list for PBXNativeTarget "FaceTrackerTests" */;
+			buildConfigurationList = 0E1BD2C42B96256600D44FED /* Build configuration list for PBXNativeTarget "EyeTrackerTests" */;
 			buildPhases = (
-				0E5A7FB72B8B84E800A0D76A /* Sources */,
-				0E5A7FB82B8B84E800A0D76A /* Frameworks */,
-				0E5A7FB92B8B84E800A0D76A /* Resources */,
+				0E1BD2A92B96256600D44FED /* Sources */,
+				0E1BD2AA2B96256600D44FED /* Frameworks */,
+				0E1BD2AB2B96256600D44FED /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0E5A7FBD2B8B84E800A0D76A /* PBXTargetDependency */,
+				0E1BD2AF2B96256600D44FED /* PBXTargetDependency */,
 			);
-			name = FaceTrackerTests;
-			productName = FaceTrackerTests;
-			productReference = 0E5A7FBB2B8B84E800A0D76A /* FaceTrackerTests.xctest */;
+			name = EyeTrackerTests;
+			productName = EyeTrackerTests;
+			productReference = 0E1BD2AD2B96256600D44FED /* EyeTrackerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		0E5A7FC42B8B84E800A0D76A /* FaceTrackerUITests */ = {
+		0E1BD2B62B96256600D44FED /* EyeTrackerUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0E5A7FD52B8B84E800A0D76A /* Build configuration list for PBXNativeTarget "FaceTrackerUITests" */;
+			buildConfigurationList = 0E1BD2C72B96256600D44FED /* Build configuration list for PBXNativeTarget "EyeTrackerUITests" */;
 			buildPhases = (
-				0E5A7FC12B8B84E800A0D76A /* Sources */,
-				0E5A7FC22B8B84E800A0D76A /* Frameworks */,
-				0E5A7FC32B8B84E800A0D76A /* Resources */,
+				0E1BD2B32B96256600D44FED /* Sources */,
+				0E1BD2B42B96256600D44FED /* Frameworks */,
+				0E1BD2B52B96256600D44FED /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				0E5A7FC72B8B84E800A0D76A /* PBXTargetDependency */,
+				0E1BD2B92B96256600D44FED /* PBXTargetDependency */,
 			);
-			name = FaceTrackerUITests;
-			productName = FaceTrackerUITests;
-			productReference = 0E5A7FC52B8B84E800A0D76A /* FaceTrackerUITests.xctest */;
+			name = EyeTrackerUITests;
+			productName = EyeTrackerUITests;
+			productReference = 0E1BD2B72B96256600D44FED /* EyeTrackerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		0E5A7F9F2B8B84E500A0D76A /* Project object */ = {
+		0E1BD2932B96256400D44FED /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
-					0E5A7FA62B8B84E500A0D76A = {
+					0E1BD29A2B96256400D44FED = {
 						CreatedOnToolsVersion = 15.2;
 					};
-					0E5A7FBA2B8B84E800A0D76A = {
+					0E1BD2AC2B96256600D44FED = {
 						CreatedOnToolsVersion = 15.2;
-						TestTargetID = 0E5A7FA62B8B84E500A0D76A;
+						TestTargetID = 0E1BD29A2B96256400D44FED;
 					};
-					0E5A7FC42B8B84E800A0D76A = {
+					0E1BD2B62B96256600D44FED = {
 						CreatedOnToolsVersion = 15.2;
-						TestTargetID = 0E5A7FA62B8B84E500A0D76A;
+						TestTargetID = 0E1BD29A2B96256400D44FED;
 					};
 				};
 			};
-			buildConfigurationList = 0E5A7FA22B8B84E500A0D76A /* Build configuration list for PBXProject "FaceTracker" */;
+			buildConfigurationList = 0E1BD2962B96256400D44FED /* Build configuration list for PBXProject "EyeTracker" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -212,37 +212,37 @@
 				en,
 				Base,
 			);
-			mainGroup = 0E5A7F9E2B8B84E500A0D76A;
-			productRefGroup = 0E5A7FA82B8B84E500A0D76A /* Products */;
+			mainGroup = 0E1BD2922B96256400D44FED;
+			productRefGroup = 0E1BD29C2B96256400D44FED /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0E5A7FA62B8B84E500A0D76A /* FaceTracker */,
-				0E5A7FBA2B8B84E800A0D76A /* FaceTrackerTests */,
-				0E5A7FC42B8B84E800A0D76A /* FaceTrackerUITests */,
+				0E1BD29A2B96256400D44FED /* EyeTracker */,
+				0E1BD2AC2B96256600D44FED /* EyeTrackerTests */,
+				0E1BD2B62B96256600D44FED /* EyeTrackerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0E5A7FA52B8B84E500A0D76A /* Resources */ = {
+		0E1BD2992B96256400D44FED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E5A7FAD2B8B84E500A0D76A /* Scene.sks in Resources */,
-				0E5A7FB62B8B84E700A0D76A /* Assets.xcassets in Resources */,
-				0E5A7FB42B8B84E500A0D76A /* Main.storyboard in Resources */,
+				0E1BD2A12B96256400D44FED /* art.scnassets in Resources */,
+				0E1BD2A82B96256600D44FED /* Assets.xcassets in Resources */,
+				0E1BD2A62B96256400D44FED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0E5A7FB92B8B84E800A0D76A /* Resources */ = {
+		0E1BD2AB2B96256600D44FED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0E5A7FC32B8B84E800A0D76A /* Resources */ = {
+		0E1BD2B52B96256600D44FED /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -252,53 +252,53 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0E5A7FA32B8B84E500A0D76A /* Sources */ = {
+		0E1BD2972B96256400D44FED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E5A7FB12B8B84E500A0D76A /* ViewController.swift in Sources */,
-				0E5A7FAF2B8B84E500A0D76A /* Scene.swift in Sources */,
-				0E5A7FAB2B8B84E500A0D76A /* AppDelegate.swift in Sources */,
+				0E1BD2A32B96256400D44FED /* ViewController.swift in Sources */,
+				0E1BD29F2B96256400D44FED /* AppDelegate.swift in Sources */,
+				0E1BD2CB2B96289F00D44FED /* FaceNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0E5A7FB72B8B84E800A0D76A /* Sources */ = {
+		0E1BD2A92B96256600D44FED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E5A7FC02B8B84E800A0D76A /* FaceTrackerTests.swift in Sources */,
+				0E1BD2B22B96256600D44FED /* EyeTrackerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0E5A7FC12B8B84E800A0D76A /* Sources */ = {
+		0E1BD2B32B96256600D44FED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E5A7FCC2B8B84E800A0D76A /* FaceTrackerUITestsLaunchTests.swift in Sources */,
-				0E5A7FCA2B8B84E800A0D76A /* FaceTrackerUITests.swift in Sources */,
+				0E1BD2BC2B96256600D44FED /* EyeTrackerUITests.swift in Sources */,
+				0E1BD2BE2B96256600D44FED /* EyeTrackerUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0E5A7FBD2B8B84E800A0D76A /* PBXTargetDependency */ = {
+		0E1BD2AF2B96256600D44FED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0E5A7FA62B8B84E500A0D76A /* FaceTracker */;
-			targetProxy = 0E5A7FBC2B8B84E800A0D76A /* PBXContainerItemProxy */;
+			target = 0E1BD29A2B96256400D44FED /* EyeTracker */;
+			targetProxy = 0E1BD2AE2B96256600D44FED /* PBXContainerItemProxy */;
 		};
-		0E5A7FC72B8B84E800A0D76A /* PBXTargetDependency */ = {
+		0E1BD2B92B96256600D44FED /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 0E5A7FA62B8B84E500A0D76A /* FaceTracker */;
-			targetProxy = 0E5A7FC62B8B84E800A0D76A /* PBXContainerItemProxy */;
+			target = 0E1BD29A2B96256400D44FED /* EyeTracker */;
+			targetProxy = 0E1BD2B82B96256600D44FED /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0E5A7FB22B8B84E500A0D76A /* Main.storyboard */ = {
+		0E1BD2A42B96256400D44FED /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0E5A7FB32B8B84E500A0D76A /* Base */,
+				0E1BD2A52B96256400D44FED /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -306,7 +306,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		0E5A7FCD2B8B84E800A0D76A /* Debug */ = {
+		0E1BD2BF2B96256600D44FED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -369,7 +369,7 @@
 			};
 			name = Debug;
 		};
-		0E5A7FCE2B8B84E800A0D76A /* Release */ = {
+		0E1BD2C02B96256600D44FED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -425,7 +425,7 @@
 			};
 			name = Release;
 		};
-		0E5A7FD02B8B84E800A0D76A /* Debug */ = {
+		0E1BD2C22B96256600D44FED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -446,18 +446,15 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.FaceTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.EyeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		0E5A7FD12B8B84E800A0D76A /* Release */ = {
+		0E1BD2C32B96256600D44FED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -478,18 +475,15 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.FaceTracker;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.EyeTracker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
-		0E5A7FD32B8B84E800A0D76A /* Debug */ = {
+		0E1BD2C52B96256600D44FED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -500,16 +494,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.FaceTrackerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.EyeTrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FaceTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FaceTracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EyeTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EyeTracker";
 			};
 			name = Debug;
 		};
-		0E5A7FD42B8B84E800A0D76A /* Release */ = {
+		0E1BD2C62B96256600D44FED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -520,16 +514,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.FaceTrackerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.EyeTrackerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FaceTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FaceTracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EyeTracker.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EyeTracker";
 			};
 			name = Release;
 		};
-		0E5A7FD62B8B84E800A0D76A /* Debug */ = {
+		0E1BD2C82B96256600D44FED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -538,16 +532,16 @@
 				DEVELOPMENT_TEAM = 2W5RDUBXCA;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.FaceTrackerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.EyeTrackerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = FaceTracker;
+				TEST_TARGET_NAME = EyeTracker;
 			};
 			name = Debug;
 		};
-		0E5A7FD72B8B84E800A0D76A /* Release */ = {
+		0E1BD2C92B96256600D44FED /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
@@ -556,55 +550,55 @@
 				DEVELOPMENT_TEAM = 2W5RDUBXCA;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.FaceTrackerUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.ctorvi.EyeTrackerUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = FaceTracker;
+				TEST_TARGET_NAME = EyeTracker;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0E5A7FA22B8B84E500A0D76A /* Build configuration list for PBXProject "FaceTracker" */ = {
+		0E1BD2962B96256400D44FED /* Build configuration list for PBXProject "EyeTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0E5A7FCD2B8B84E800A0D76A /* Debug */,
-				0E5A7FCE2B8B84E800A0D76A /* Release */,
+				0E1BD2BF2B96256600D44FED /* Debug */,
+				0E1BD2C02B96256600D44FED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0E5A7FCF2B8B84E800A0D76A /* Build configuration list for PBXNativeTarget "FaceTracker" */ = {
+		0E1BD2C12B96256600D44FED /* Build configuration list for PBXNativeTarget "EyeTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0E5A7FD02B8B84E800A0D76A /* Debug */,
-				0E5A7FD12B8B84E800A0D76A /* Release */,
+				0E1BD2C22B96256600D44FED /* Debug */,
+				0E1BD2C32B96256600D44FED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0E5A7FD22B8B84E800A0D76A /* Build configuration list for PBXNativeTarget "FaceTrackerTests" */ = {
+		0E1BD2C42B96256600D44FED /* Build configuration list for PBXNativeTarget "EyeTrackerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0E5A7FD32B8B84E800A0D76A /* Debug */,
-				0E5A7FD42B8B84E800A0D76A /* Release */,
+				0E1BD2C52B96256600D44FED /* Debug */,
+				0E1BD2C62B96256600D44FED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0E5A7FD52B8B84E800A0D76A /* Build configuration list for PBXNativeTarget "FaceTrackerUITests" */ = {
+		0E1BD2C72B96256600D44FED /* Build configuration list for PBXNativeTarget "EyeTrackerUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0E5A7FD62B8B84E800A0D76A /* Debug */,
-				0E5A7FD72B8B84E800A0D76A /* Release */,
+				0E1BD2C82B96256600D44FED /* Debug */,
+				0E1BD2C92B96256600D44FED /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 0E5A7F9F2B8B84E500A0D76A /* Project object */;
+	rootObject = 0E1BD2932B96256400D44FED /* Project object */;
 }

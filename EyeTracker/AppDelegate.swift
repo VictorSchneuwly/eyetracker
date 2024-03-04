@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  FaceTracker
+//  EyeTracker
 //
 //  Created by Victor Schneuwly on 25.02.2024.
 //

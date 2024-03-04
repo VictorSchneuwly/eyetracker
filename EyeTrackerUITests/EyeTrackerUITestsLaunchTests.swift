@@ -1,13 +1,14 @@
 //
-//  FaceTrackerUITestsLaunchTests.swift
-//  FaceTrackerUITests
+//  EyeTrackerUITestsLaunchTests.swift
+//  EyeTrackerUITests
 //
-//  Created by Victor Schneuwly on 25.02.2024.
+//  Created by Victor Schneuwly on 04.03.2024.
 //
 
 import XCTest
 
-final class FaceTrackerUITestsLaunchTests: XCTestCase {
+final class EyeTrackerUITestsLaunchTests: XCTestCase {
+
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
     }

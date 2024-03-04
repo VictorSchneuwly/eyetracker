@@ -13,21 +13,21 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet var sceneView: ARSCNView!
 
-    private let axesUrl = Bundle.main.url(forResource: "axes", withExtension: "scn")!
+    private let axesUrl = Bundle.main.url(forResource: "art.scnassets/axes", withExtension: "scn")!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Set the view's delegate
-        // sceneView.delegate = self
-        sceneView.session.delegate = self
+        sceneView.delegate = self
+        // sceneView.session.delegate = self
 
         // Show statistics such as fps and timing information
-        // sceneView.showsStatistics = true
+        sceneView.showsStatistics = true
 
         // Set the scene to the view
         sceneView.scene = SCNScene()
-        //
+
         // print("Face tracking is supported: \(ARFaceTrackingConfiguration.isSupported)")
     }
 
@@ -85,11 +85,7 @@ extension ViewController: ARSCNViewDelegate {
 
         faceNode.update(with: faceAnchor)
     }
-}
 
-// MARK: - ARSKViewDelegate
-
-extension ViewController: ARSessionDelegate {
     func session(_: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
         guard let error = error as? ARError else {

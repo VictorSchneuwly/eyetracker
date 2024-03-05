@@ -27,6 +27,19 @@ class ViewController: UIViewController {
 
         // Set the scene to the view
         sceneView.scene = SCNScene()
+
+        // Add an overlay to the scene view
+        let overlay = SKScene(size: view.bounds.size)
+        overlay.scaleMode = .resizeFill
+
+        let lookPoint = SKShapeNode(circleOfRadius: 20)
+        lookPoint.name = "lookPoint"
+        lookPoint.fillColor = .red
+        lookPoint.strokeColor = .red
+
+        overlay.addChild(lookPoint)
+
+        sceneView.overlaySKScene = overlay
     }
 
     override func viewWillAppear(_ animated: Bool) {

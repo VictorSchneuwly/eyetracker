@@ -13,7 +13,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet var sceneView: ARSCNView!
 
-    private let axesUrl = Bundle.main.url(forResource: "art.scnassets/axes", withExtension: "scn")!
+    private let axesUrl = Bundle.main.url(forResource: "axes", withExtension: "scn")!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +27,6 @@ class ViewController: UIViewController {
 
         // Set the scene to the view
         sceneView.scene = SCNScene()
-
-        // print("Face tracking is supported: \(ARFaceTrackingConfiguration.isSupported)")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,35 +60,28 @@ class ViewController: UIViewController {
 
 extension ViewController: ARSCNViewDelegate {
     func renderer(_: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        // Create and configure a node for the anchor added to the view's session.
+        guard let faceAnchor = anchor as? ARFaceAnchor else { return nil }
 
-        if let faceAnchor = anchor as? ARFaceAnchor {
-            let node = FaceNode(url: axesUrl)
-            node.update(with: faceAnchor)
-            return node
-        }
-
-        // if it is not a face: add a box on the anchor
-        let node = SCNNode()
-        node.geometry = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
-        return node
+        return createFace(url: axesUrl, for: faceAnchor)
     }
 
     func renderer(_: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard let faceNode = node as? FaceNode,
-              let faceAnchor = anchor as? ARFaceAnchor
-        else {
-            return
-        }
+        guard let faceAnchor = anchor as? ARFaceAnchor else { return }
 
-        faceNode.update(with: faceAnchor)
+        node.enumerateChildNodes { child, _ in
+            if child.name == "left" {
+                child.simdTransform = faceAnchor.leftEyeTransform
+            } else if child.name == "right" {
+                child.simdTransform = faceAnchor.rightEyeTransform
+            }
+        }
     }
+
+    // MARK: - session delegate
 
     func session(_: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
-        guard let error = error as? ARError else {
-            return
-        }
+        guard let error = error as? ARError else { return }
 
         let errorWithInfo = "An error occurred: \(error.localizedDescription)"
         print(errorWithInfo)
@@ -106,4 +97,32 @@ extension ViewController: ARSCNViewDelegate {
                               options: [.resetTracking,
                                         .removeExistingAnchors])
     }
+}
+
+// MARK: - face handling
+
+func createFace(url: URL, for anchor: ARFaceAnchor) -> SCNNode? {
+    let face = SCNReferenceNode(url: url)
+    let leftEye = SCNReferenceNode(url: url)
+    let rightEye = SCNReferenceNode(url: url)
+
+    leftEye?.name = "left"
+    rightEye?.name = "right"
+
+    // load everything
+    face?.load()
+    leftEye?.load()
+    rightEye?.load()
+
+    // add the eyes to the face
+    if let leftEye = leftEye {
+        leftEye.simdTransform = anchor.leftEyeTransform
+        face?.addChildNode(leftEye)
+    }
+    if let rightEye = rightEye {
+        rightEye.simdTransform = anchor.rightEyeTransform
+        face?.addChildNode(rightEye)
+    }
+
+    return face
 }

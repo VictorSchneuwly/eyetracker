@@ -88,7 +88,84 @@ extension ViewController: ARSCNViewDelegate {
                 child.simdTransform = faceAnchor.rightEyeTransform
             }
         }
+
+        // update the look point on the overlay
+        if let lookPoint = sceneView.overlaySKScene?.childNode(withName: "lookPoint") {
+            getLookOnScreen(for: faceAnchor) { point in
+                print("New look point: \(point)")
+                lookPoint.position = point
+            }
+        }
     }
+
+    private func getLookOnScreen(for faceAnchor: ARFaceAnchor, completion: @escaping (CGPoint) -> Void) {
+        guard let cameraTransform = sceneView.session.currentFrame?.camera.transform else {
+            fatalError("No camera transform available")
+        }
+
+        let lookAtPointWorld = faceAnchor.lookAtPoint.toWorldCoordinate(using: faceAnchor.transform)
+
+        let cameraCoordinate = simd_mul(simd_inverse(cameraTransform), lookAtPointWorld)
+
+        DispatchQueue.main.async {
+            // Access UI-related properties on the main thread
+            let screenSize = self.sceneView.bounds.size
+            let frameSize = self.sceneView.frame.size
+
+            /* // Normalize the coordinates
+             let normalizedX = CGFloat(cameraCoordinate.x / cameraCoordinate.w)
+             let normalizedY = CGFloat(cameraCoordinate.y / cameraCoordinate.w)
+
+             // Convert normalized coordinates to screen space
+             let screenX = (normalizedX + 1) * 0.5 * screenSize.width
+             let screenY = (1 - normalizedY) * 0.5 * screenSize.height
+
+             let screenPoint = CGPoint(x: screenX, y: screenY) */
+            // Reflecting in the XY Plane (ignoring Z coordinate)
+
+            // Projecting onto the mobile screen
+            let screenX = cameraCoordinate.y / (Float(screenSize.width) / 2) * Float(frameSize.width)
+            let screenY = cameraCoordinate.x / (Float(screenSize.height) / 2) * Float(frameSize.height)
+
+            let focusPoint = CGPoint(
+                x: CGFloat(screenX).clamped(to: 0 ... screenSize.width),
+                y: CGFloat(screenY).clamped(to: 0 ... screenSize.height)
+            )
+
+            completion(focusPoint)
+        }
+    }
+
+    /* private func getLookOnScreen(for faceAnchor: ARFaceAnchor) -> CGPoint {
+         guard let camera = sceneView.session.currentFrame?.camera else {
+             fatalError("No camera transform available")
+         }
+
+         let lookAtPointWorld = faceAnchor.lookAtPoint.toWorldCoordinate(using: faceAnchor.transform)
+         /* let pointOnScreen = simd_mul(simd_inverse(cameraTransform), point)
+
+          let screenX = pointOnScreen.y / (Float(sceneView.bounds.width) / 2) * Float(sceneView.frame.width)
+          let screenY = pointOnScreen.x / (Float(sceneView.bounds.height) / 2) * Float(sceneView.frame.height)
+
+          return CGPoint(
+              x: CGFloat(screenX) + sceneView.frame.width / 2,
+              y: CGFloat(screenY) + sceneView.frame.height / 2
+          ) */
+         // Convert world coordinates to camera coordinates
+         // let cameraCoordinate = camera.transform.inverse * lookAtPointWorld
+         let cameraCoordinate = simd_mul(simd_inverse(camera.transform), lookAtPointWorld)
+
+         // Normalize the coordinates
+         let normalizedX = CGFloat(cameraCoordinate.x / cameraCoordinate.w)
+         let normalizedY = CGFloat(cameraCoordinate.y / cameraCoordinate.w)
+
+         // Assuming the ARSCNView is fullscreen, we map the normalized coordinates to screen space
+         let screenSize = sceneView.bounds.size
+         let screenX = (normalizedX + 1) * 0.5 * screenSize.width
+         let screenY = (1 - normalizedY) * 0.5 * screenSize.height
+
+         return CGPoint(x: screenX, y: screenY)
+     } */
 
     // MARK: - session delegate
 

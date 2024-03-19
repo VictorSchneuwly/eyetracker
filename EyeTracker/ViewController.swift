@@ -56,6 +56,7 @@ class ViewController: UIViewController {
             configuration.maximumNumberOfTrackedFaces = ARFaceTrackingConfiguration.supportedNumberOfTrackedFaces
         }
         configuration.isLightEstimationEnabled = true
+        configuration.worldAlignment = .camera
 
         // Run the view's session
         sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])

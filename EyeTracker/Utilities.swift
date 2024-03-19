@@ -27,3 +27,56 @@ extension CGFloat {
         return Swift.min(Swift.max(self, limits.lowerBound), limits.upperBound)
     }
 }
+
+func createLineNode(from startPoint: simd_float3, to endPoint: simd_float3) -> SCNNode {
+    let lineRadius: CGFloat = 0.002 // Thin line
+    // Update the cylinder's height to match the distance between the start and end points
+    let distance = simd_distance(startPoint, endPoint)
+    let lineGeometry = SCNCylinder(radius: lineRadius, height: CGFloat(distance))
+    lineGeometry.firstMaterial?.diffuse.contents = UIColor.red // Line color
+    let lineNode = SCNNode(geometry: lineGeometry)
+    lineNode.name = "line"
+
+    // Calculate the midpoint
+    let midPoint = (startPoint + endPoint) / 2.0
+    lineNode.position = SCNVector3(midPoint.x, midPoint.y, midPoint.z)
+
+    // Calculate the orientation of the line
+    let w = endPoint - startPoint
+    let wLength = simd_length(w)
+    let up = simd_float3(0, 1, 0)
+    let axis = simd_cross(up, w)
+    let angle = acos(simd_dot(up, w) / wLength)
+
+    // Apply the rotation to align the cylinder with the line direction
+    lineNode.rotation = SCNVector4(axis.x, axis.y, axis.z, angle)
+
+    return lineNode
+}
+
+func updateLineNode(from startPoint: simd_float3, to endPoint: simd_float3, on sceneView: ARSCNView) {
+    guard let lineNode = sceneView.scene.rootNode.childNode(withName: "line", recursively: true) else {
+        return
+    }
+
+    // Calculate the midpoint
+    let midPoint = (startPoint + endPoint) / 2.0
+    lineNode.position = SCNVector3(midPoint.x, midPoint.y, midPoint.z)
+
+    // Update the cylinder's height to match the distance between the start and end points
+    let distance = simd_distance(startPoint, endPoint)
+    guard let geometry = lineNode.geometry as? SCNCylinder else {
+        fatalError("The geometry of the line node is not a cylinder")
+    }
+    geometry.height = CGFloat(distance)
+
+    // Calculate the orientation of the line
+    let w = endPoint - startPoint
+    let wLength = simd_length(w)
+    let up = simd_float3(0, 1, 0)
+    let axis = simd_cross(up, w)
+    let angle = acos(simd_dot(up, w) / wLength)
+
+    // Apply the rotation to align the cylinder with the line direction
+    lineNode.rotation = SCNVector4(axis.x, axis.y, axis.z, angle)
+}

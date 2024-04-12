@@ -8,6 +8,10 @@
 import ARKit
 
 extension simd_float3 {
+    func normalized() -> simd_float3 {
+        return simd_normalize(self)
+    }
+
     func toWorldCoordinate(using transform: simd_float4x4) -> simd_float3 {
         return changeCooringateSystem(to: transform)
     }
@@ -28,6 +32,8 @@ extension CGFloat {
     }
 }
 
+// MARK: - Line drawing
+
 func createLineNode(from startPoint: simd_float3, to endPoint: simd_float3) -> SCNNode {
     let lineRadius: CGFloat = 0.002 // Thin line
     // Update the cylinder's height to match the distance between the start and end points
@@ -36,20 +42,6 @@ func createLineNode(from startPoint: simd_float3, to endPoint: simd_float3) -> S
     lineGeometry.firstMaterial?.diffuse.contents = UIColor.red // Line color
     let lineNode = SCNNode(geometry: lineGeometry)
     lineNode.name = "line"
-
-    // Calculate the midpoint
-    let midPoint = (startPoint + endPoint) / 2.0
-    lineNode.position = SCNVector3(midPoint.x, midPoint.y, midPoint.z)
-
-    // Calculate the orientation of the line
-    let w = endPoint - startPoint
-    let wLength = simd_length(w)
-    let up = simd_float3(0, 1, 0)
-    let axis = simd_cross(up, w)
-    let angle = acos(simd_dot(up, w) / wLength)
-
-    // Apply the rotation to align the cylinder with the line direction
-    lineNode.rotation = SCNVector4(axis.x, axis.y, axis.z, angle)
 
     return lineNode
 }
@@ -79,4 +71,14 @@ func updateLineNode(from startPoint: simd_float3, to endPoint: simd_float3, on s
 
     // Apply the rotation to align the cylinder with the line direction
     lineNode.rotation = SCNVector4(axis.x, axis.y, axis.z, angle)
+}
+
+// MARK: - Other
+
+func inchesToMeters(_ inches: CGFloat) -> CGFloat {
+    return inches * 0.0254
+}
+
+func metersToInches(_ meters: CGFloat) -> CGFloat {
+    return meters / 0.0254
 }

@@ -38,8 +38,29 @@ class AREyeTracker {
      - Returns: The 2D point on the screen
      */
     func project(point: SCNVector3, on screen: Screen) -> CGPoint {
-        let projectPoint = screen.projectPoint(point)
-        return CGPoint(x: CGFloat(projectPoint.x), y: CGFloat(projectPoint.y))
+        // We can discard the z coordinate of the point
+        // We know the camera is at x = 0 and y = screen.size.width / 2
+        // The point coordinates are given in meters with the camera as origin
+        // We have access to the ppi and a function from inch to meters
+
+        guard let tmp = Device.ppi else {
+            fatalError("Device PPI is not set")
+        }
+
+        let ppi = CGFloat(tmp)
+
+        let point = CGPoint(
+            x: metersToInches(CGFloat(point.x)) * ppi,
+            y: metersToInches(CGFloat(point.y)) * ppi
+        )
+
+        // TODO: use the scale to go from point to inches
+        let pointInScreenCoordinates = CGPoint(
+            x: point.x,
+            y: (screen.size.height / 2) + point.y
+        )
+
+        return pointInScreenCoordinates
     }
 
     /**

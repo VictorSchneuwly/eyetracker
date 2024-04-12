@@ -5,7 +5,7 @@
 //  Created by Victor Schneuwly on 04.03.2024.
 //
 
-import XCTest
+import ARKit
 @testable import EyeTracker
 import SceneKit
 import SpriteKit

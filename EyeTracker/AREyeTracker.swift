@@ -71,7 +71,7 @@ class AREyeTracker {
 
     struct Screen {
         var size: CGSize
-        var camera: ARCamera
-        var projectPoint: (SCNVector3) -> SCNVector3
+        // var camera: ARCamera
+        // var projectPoint: (SCNVector3) -> SCNVector3
     }
 }

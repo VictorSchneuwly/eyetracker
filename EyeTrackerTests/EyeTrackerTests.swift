@@ -38,7 +38,6 @@ final class EyeTrackerTests: XCTestCase {
         let intersection = eyeTracker.intersectionWithPlane(eyePosition: eyePosition, eyeDirection: eyeDirection)
         XCTAssertNil(intersection) // Expect nil as the direction is parallel to the plane
     }
-    }
 
     func testPrint() {
         print("UIScreen: bounds      : \(UIScreen.main.bounds)")

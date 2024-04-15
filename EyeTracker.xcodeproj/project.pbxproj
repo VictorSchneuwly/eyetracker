@@ -18,6 +18,7 @@
 		0E2254312B971E16000AB0C8 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2254302B971E16000AB0C8 /* Utilities.swift */; };
 		0EC40D222BB2D437000DA1B3 /* AREyeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC40D212BB2D437000DA1B3 /* AREyeTracker.swift */; };
 		0EDA7C532BC5410800F62374 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA7C522BC5410800F62374 /* Device.swift */; };
+		0E943C3B2BCD6074008F7C39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E943C392BCD6074008F7C39 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		0E2254302B971E16000AB0C8 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		0EC40D212BB2D437000DA1B3 /* AREyeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREyeTracker.swift; sourceTree = "<group>"; };
 		0EDA7C522BC5410800F62374 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		0E943C3A2BCD6074008F7C39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +104,7 @@
 		0E1BD29D2B96256400D44FED /* EyeTracker */ = {
 			isa = PBXGroup;
 			children = (
+				0E943C392BCD6074008F7C39 /* LaunchScreen.storyboard */,
 				0E22542E2B970FDB000AB0C8 /* axes.scn */,
 				0E1BD29E2B96256400D44FED /* AppDelegate.swift */,
 				0E1BD2A22B96256400D44FED /* ViewController.swift */,
@@ -236,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E1BD2A82B96256600D44FED /* Assets.xcassets in Resources */,
+				0E943C3B2BCD6074008F7C39 /* LaunchScreen.storyboard in Resources */,
 				0E1BD2A62B96256400D44FED /* Main.storyboard in Resources */,
 				0E22542F2B970FDB000AB0C8 /* axes.scn in Resources */,
 			);
@@ -311,6 +315,14 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		0E943C392BCD6074008F7C39 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E943C3A2BCD6074008F7C39 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -366,6 +378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -424,6 +437,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;

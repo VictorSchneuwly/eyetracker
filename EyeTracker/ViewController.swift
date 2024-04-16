@@ -104,11 +104,7 @@ extension ViewController: ARSCNViewDelegate {
         {
             DispatchQueue.main.async {
                 // Access UI-related properties on the main thread
-                let screen = AREyeTracker.Screen(size: self.sceneView.bounds.size /* ,
-                 camera: camera,
-                 projectPoint: self.sceneView.projectPoint(_:) */ )
-                print(screen.size)
-                let point = self.eyeTracker.getLook(on: screen, using: faceAnchor)
+                let point = self.eyeTracker.getLookOnScreen(using: faceAnchor)
                 if let point = point {
                     lookPoint.position = point
                 }

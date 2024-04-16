@@ -37,7 +37,7 @@ class AREyeTracker {
      - screen: The screen to project the point on
      - Returns: The 2D point on the screen
      */
-    func project(point: SCNVector3, on screen: Screen) -> CGPoint {
+    func project(point: SCNVector3) -> CGPoint {
         // We can discard the z coordinate of the point
         // We know the camera is at x = 0 and y = screen.size.width / 2
         // The point coordinates are given in meters with the camera as origin
@@ -49,18 +49,24 @@ class AREyeTracker {
 
         let ppi = CGFloat(tmp)
 
-        let point = CGPoint(
+        let pointInPixel = CGPoint(
             x: metersToInches(CGFloat(point.x)) * ppi,
             y: metersToInches(CGFloat(point.y)) * ppi
         )
 
-        // TODO: use the scale to go from point to inches
+        // We have to turn the coordinate from pixel to points
         let pointInScreenCoordinates = CGPoint(
-            x: point.x,
-            y: (screen.size.height / 2) + point.y
+            x: pointInPixel.x / UIScreen.main.scale,
+            y: pointInPixel.y / UIScreen.main.scale
         )
 
-        return pointInScreenCoordinates
+        // finally, since the point is relative to the camera
+        // and that the camera is at the center of the screen
+        // we have to shift the point y coordinate
+        return CGPoint(
+            x: pointInScreenCoordinates.x,
+            y: pointInScreenCoordinates.y + UIScreen.main.bounds.height / 2
+        )
     }
 
     /**
@@ -70,7 +76,7 @@ class AREyeTracker {
      - faceAnchor: The face anchor to get the eye position and direction from
      - Returns: The look point on the screen
      */
-    func getLook(on screen: Screen, using faceAnchor: ARFaceAnchor) -> CGPoint? {
+    func getLookOnScreen(using faceAnchor: ARFaceAnchor) -> CGPoint? {
         // let cameraTransform = screen.camera.transform
 
         let eyeCameraPosition =
@@ -87,12 +93,6 @@ class AREyeTracker {
             return nil
         }
 
-        return project(point: SCNVector3(intersection), on: screen)
-    }
-
-    struct Screen {
-        var size: CGSize
-        // var camera: ARCamera
-        // var projectPoint: (SCNVector3) -> SCNVector3
+        return project(point: SCNVector3(intersection))
     }
 }

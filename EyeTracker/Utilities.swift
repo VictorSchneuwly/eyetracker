@@ -46,6 +46,10 @@ extension CGPoint {
             y: CGFloat(y).clamped(to: rect.minY ... rect.maxY)
         )
     }
+
+    static func / (lhs: CGPoint, rhs: CGFloat) -> CGPoint {
+        return CGPoint(x: lhs.x / rhs, y: lhs.y / rhs)
+    }
 }
 
 // MARK: - Line drawing
@@ -97,10 +101,9 @@ extension Array where Element == CGPoint {
      - Returns: The mean of all the points
      */
     func mean() -> CGPoint {
-        let point = reduce(CGPoint.zero) { result, point in
+        return reduce(CGPoint.zero) { result, point in
             CGPoint(x: result.x + point.x, y: result.y + point.y)
-        }
-        return CGPoint(x: point.x / CGFloat(count), y: point.y / CGFloat(count))
+        } / CGFloat(count)
     }
 }
 

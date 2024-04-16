@@ -55,10 +55,7 @@ class AREyeTracker {
         )
 
         // We have to turn the coordinate from pixel to points
-        let pointInScreenCoordinates = CGPoint(
-            x: pointInPixel.x / UIScreen.main.scale,
-            y: pointInPixel.y / UIScreen.main.scale
-        )
+        let pointInScreenCoordinates = pointInPixel / UIScreen.main.scale
 
         // finally, since the point is relative to the camera
         // and that the camera is at the center of the screen

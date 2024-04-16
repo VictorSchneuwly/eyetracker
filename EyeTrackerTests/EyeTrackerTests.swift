@@ -13,6 +13,10 @@ import UIKit
 import XCTest
 
 final class EyeTrackerTests: XCTestCase {
+    private let border = 0.009
+    private let realWidth = 0.1954 - 0.018
+    private let realHeight = 0.1348 - 0.018
+
     // MARK: Test intersection
 
     func testIntersectionWhenLookingAtCamera() {
@@ -55,21 +59,65 @@ final class EyeTrackerTests: XCTestCase {
     func testProjectForPointMiddleRight() {
         // We assume we use an iPad Mini 6th
 
-        let width = 0.1954
-        let heigh = 0.1348
-
-        let topLeft = SCNVector3(width, 0, 0)
-        let screenSize = UIScreen.main.bounds
-        let size = CGSize(width: screenSize.width, height: screenSize.height)
-        let screen = AREyeTracker.Screen(size: size)
+        let middleRight = SCNVector3(realWidth, 0, 0)
 
         let eyeTracker = AREyeTracker()
-        let projection = eyeTracker.project(point: topLeft, on: screen)
+        let projection = eyeTracker.project(point: middleRight)
         let expected = CGPoint(
-            x: screen.size.width,
-            y: screen.size.height / 2
+            x: UIScreen.main.bounds.width,
+            y: UIScreen.main.bounds.height / 2
         )
 
+        XCTAssertEqual(projection, expected)
+    }
+
+    func testProjectForPointMiddleLeft() {
+        // We assume we use an iPad Mini 6th
+        let middleLeft = SCNVector3(0, 0, 0)
+
+        let eyeTracker = AREyeTracker()
+        let projection = eyeTracker.project(point: middleLeft)
+        let expected = CGPoint(
+            x: 0,
+            y: UIScreen.main.bounds.height / 2
+        )
+        XCTAssertEqual(projection, expected)
+    }
+
+    func testProjectForPointBottomLeft() {
+        // We assume we use an iPad Mini 6th
+
+        let bottomLeft = SCNVector3(0, -realHeight / 2, 0)
+
+        let eyeTracker = AREyeTracker()
+        let projection = eyeTracker.project(point: bottomLeft)
+        let expected = CGPoint(x: 0, y: 0)
+
+        XCTAssertEqual(projection, expected)
+    }
+
+    func testProjectForMiddleOfScreen() {
+        // We assume we use an iPad Mini 6th
+        let middle = SCNVector3(realWidth / 2, 0, 0)
+
+        let eyeTracker = AREyeTracker()
+        let projection = eyeTracker.project(point: middle)
+        let expected = CGPoint(
+            x: UIScreen.main.bounds.width / 2,
+            y: UIScreen.main.bounds.height / 2
+        )
+        XCTAssertEqual(projection, expected)
+    }
+
+    func testProjectForPointMiddleTop() {
+        // We assume we use an iPad Mini 6th
+        let middleTop = SCNVector3(realWidth / 2, realHeight / 2, 0)
+        let eyeTracker = AREyeTracker()
+        let projection = eyeTracker.project(point: middleTop)
+        let expected = CGPoint(
+            x: UIScreen.main.bounds.width / 2,
+            y: UIScreen.main.bounds.height
+        )
         XCTAssertEqual(projection, expected)
     }
 }

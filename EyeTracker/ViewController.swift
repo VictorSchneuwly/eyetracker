@@ -107,7 +107,7 @@ extension ViewController: ARSCNViewDelegate {
                 let point = self.eyeTracker.getLookOnScreen(using: faceAnchor)
                 if let point = point {
                     self.updatePoints(with: point)
-                    lookPoint.position = self.points.mean()
+                    lookPoint.position = self.points.mean().clamped(to: UIScreen.main.bounds)
                 }
             }
         }

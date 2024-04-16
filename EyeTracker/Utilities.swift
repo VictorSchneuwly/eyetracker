@@ -32,6 +32,22 @@ extension CGFloat {
     }
 }
 
+extension CGPoint {
+    func clamped(to limits: ClosedRange<CGFloat>) -> CGPoint {
+        return CGPoint(
+            x: CGFloat(x).clamped(to: limits),
+            y: CGFloat(y).clamped(to: limits)
+        )
+    }
+
+    func clamped(to rect: CGRect) -> CGPoint {
+        return CGPoint(
+            x: CGFloat(x).clamped(to: rect.minX ... rect.maxX),
+            y: CGFloat(y).clamped(to: rect.minY ... rect.maxY)
+        )
+    }
+}
+
 // MARK: - Line drawing
 
 func createLineNode(from startPoint: simd_float3, to endPoint: simd_float3) -> SCNNode {

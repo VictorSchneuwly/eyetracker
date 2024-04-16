@@ -15,6 +15,8 @@ class ViewController: UIViewController {
 
     private let axesUrl = Bundle.main.url(forResource: "axes", withExtension: "scn")!
     private var eyeTracker = AREyeTracker()
+    private var points: [CGPoint] = []
+    private let maxPoints = 10
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,14 +101,13 @@ extension ViewController: ARSCNViewDelegate {
         }
 
         // update the look point on the overlay
-        if let lookPoint = sceneView.overlaySKScene?.childNode(withName: "lookPoint"),
-           let camera = sceneView.session.currentFrame?.camera
-        {
+        if let lookPoint = sceneView.overlaySKScene?.childNode(withName: "lookPoint") {
             DispatchQueue.main.async {
                 // Access UI-related properties on the main thread
                 let point = self.eyeTracker.getLookOnScreen(using: faceAnchor)
                 if let point = point {
-                    lookPoint.position = point
+                    self.updatePoints(with: point)
+                    lookPoint.position = self.points.mean()
                 }
             }
         }
@@ -131,6 +132,13 @@ extension ViewController: ARSCNViewDelegate {
         sceneView.session.run(session.configuration!,
                               options: [.resetTracking,
                                         .removeExistingAnchors])
+    }
+
+    private func updatePoints(with point: CGPoint) {
+        if points.count >= maxPoints {
+            points.removeFirst()
+        }
+        points.append(point)
     }
 }
 

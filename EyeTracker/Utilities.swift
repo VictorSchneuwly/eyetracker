@@ -73,6 +73,21 @@ func updateLineNode(from startPoint: simd_float3, to endPoint: simd_float3, on s
     lineNode.rotation = SCNVector4(axis.x, axis.y, axis.z, angle)
 }
 
+// MARK: - Point list extension
+
+extension Array where Element == CGPoint {
+    /**
+     Returns the mean of all the points in the array
+     - Returns: The mean of all the points
+     */
+    func mean() -> CGPoint {
+        let point = reduce(CGPoint.zero) { result, point in
+            CGPoint(x: result.x + point.x, y: result.y + point.y)
+        }
+        return CGPoint(x: point.x / CGFloat(count), y: point.y / CGFloat(count))
+    }
+}
+
 // MARK: - Other
 
 func inchesToMeters(_ inches: CGFloat) -> CGFloat {

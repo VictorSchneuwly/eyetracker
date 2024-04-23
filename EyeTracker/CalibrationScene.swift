@@ -74,8 +74,14 @@ class CalibrationScene: SKScene {
 
         // Store the calibration data
         if let calibrationDelegate = calibrationDelegate {
-            let calibrationData = calibrationDelegate.getCalibrationData(for: target.position)
-            self.calibrationData.append(calibrationData)
+            if let calibrationData = calibrationDelegate.getCalibrationData(for: target.position) {
+                self.calibrationData.append(calibrationData)
+            } else {
+                // target stays the same
+                currentPointIndex -= 1
+
+                // TODO: add error message
+            }
         }
 
         // Update the target position

@@ -16,9 +16,10 @@
 		0E1BD2BE2B96256600D44FED /* EyeTrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1BD2BD2B96256600D44FED /* EyeTrackerUITestsLaunchTests.swift */; };
 		0E22542F2B970FDB000AB0C8 /* axes.scn in Resources */ = {isa = PBXBuildFile; fileRef = 0E22542E2B970FDB000AB0C8 /* axes.scn */; };
 		0E2254312B971E16000AB0C8 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2254302B971E16000AB0C8 /* Utilities.swift */; };
+		0E943C3B2BCD6074008F7C39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E943C392BCD6074008F7C39 /* LaunchScreen.storyboard */; };
 		0EC40D222BB2D437000DA1B3 /* AREyeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EC40D212BB2D437000DA1B3 /* AREyeTracker.swift */; };
 		0EDA7C532BC5410800F62374 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EDA7C522BC5410800F62374 /* Device.swift */; };
-		0E943C3B2BCD6074008F7C39 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E943C392BCD6074008F7C39 /* LaunchScreen.storyboard */; };
+		0EF1995F2BD65FE300E49F95 /* CalibrationScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF1995E2BD65FE300E49F95 /* CalibrationScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,9 +52,10 @@
 		0E1BD2BD2B96256600D44FED /* EyeTrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EyeTrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0E22542E2B970FDB000AB0C8 /* axes.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = axes.scn; sourceTree = "<group>"; };
 		0E2254302B971E16000AB0C8 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		0E943C3A2BCD6074008F7C39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0EC40D212BB2D437000DA1B3 /* AREyeTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREyeTracker.swift; sourceTree = "<group>"; };
 		0EDA7C522BC5410800F62374 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
-		0E943C3A2BCD6074008F7C39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0EF1995E2BD65FE300E49F95 /* CalibrationScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalibrationScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				0E2254302B971E16000AB0C8 /* Utilities.swift */,
 				0EC40D212BB2D437000DA1B3 /* AREyeTracker.swift */,
 				0EDA7C522BC5410800F62374 /* Device.swift */,
+				0EF1995E2BD65FE300E49F95 /* CalibrationScene.swift */,
 			);
 			path = EyeTracker;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				0E1BD2A32B96256400D44FED /* ViewController.swift in Sources */,
 				0EC40D222BB2D437000DA1B3 /* AREyeTracker.swift in Sources */,
 				0E1BD29F2B96256400D44FED /* AppDelegate.swift in Sources */,
+				0EF1995F2BD65FE300E49F95 /* CalibrationScene.swift in Sources */,
 				0EDA7C532BC5410800F62374 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

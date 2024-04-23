@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     private var points: [CGPoint] = []
     private let maxPoints = 10
 
+    private var lastFaceAnchor: ARFaceAnchor?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,13 +34,14 @@ class ViewController: UIViewController {
         sceneView.scene = SCNScene()
 
         // Add an overlay to the scene view
-        let overlay = SKScene(size: view.bounds.size)
+        let overlay = CalibrationScene(size: view.bounds.size)
         overlay.scaleMode = .resizeFill
+        overlay.calibrationDelegate = self
 
         let lookPoint = SKShapeNode(circleOfRadius: 20)
         lookPoint.name = "lookPoint"
-        lookPoint.fillColor = .red
-        lookPoint.strokeColor = .red
+        lookPoint.fillColor = .yellow
+        lookPoint.strokeColor = .yellow
 
         overlay.addChild(lookPoint)
 
@@ -50,6 +53,8 @@ class ViewController: UIViewController {
         overlay.addChild(testPoint)
 
         sceneView.overlaySKScene = overlay
+
+        startCalibration()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -139,6 +144,37 @@ extension ViewController: ARSCNViewDelegate {
             points.removeFirst()
         }
         points.append(point)
+    }
+}
+
+// MARK: - CalibrationDelegate
+
+extension ViewController: CalibrationDelegate {
+    func startCalibration() {
+        guard let overlay = sceneView.overlaySKScene as? CalibrationScene else { return }
+        overlay.startCalibration()
+    }
+
+    func stopCalibration() {
+        guard let overlay = sceneView.overlaySKScene as? CalibrationScene else { return }
+        overlay.stopCalibration()
+    }
+
+    func getCalibrationData(for target: CGPoint) -> CalibrationData? {
+        if points.isEmpty {
+            return nil
+        }
+
+        guard let faceAnchor = lastFaceAnchor else { return nil }
+        // TODO: mean or last point?
+        let gazePoint = points.mean()
+        return CalibrationData(
+            targetPoint: target,
+            gazePoint: gazePoint,
+            faceTransform: faceAnchor.transform,
+            rightEyeTransform: faceAnchor.rightEyeTransform,
+            leftEyeTransform: faceAnchor.leftEyeTransform
+        )
     }
 }
 

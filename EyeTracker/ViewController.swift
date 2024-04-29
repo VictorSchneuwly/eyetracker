@@ -15,20 +15,17 @@ class ViewController: UIViewController {
 
     private let axesUrl = Bundle.main.url(forResource: "axes", withExtension: "scn")!
     private var eyeTracker = AREyeTracker()
-    private var points: [CGPoint] = []
+    private var points: [(CGPoint, ARFaceAnchor)] = []
     private let maxPoints = 10
-
-    private var lastFaceAnchor: ARFaceAnchor?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Set the view's delegate
         sceneView.delegate = self
-        // sceneView.session.delegate = self
 
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+        // sceneView.showsStatistics = true
 
         // Set the scene to the view
         sceneView.scene = SCNScene()
@@ -42,19 +39,13 @@ class ViewController: UIViewController {
         lookPoint.name = "lookPoint"
         lookPoint.fillColor = .yellow
         lookPoint.strokeColor = .yellow
+        lookPoint.zPosition = 1
 
         overlay.addChild(lookPoint)
 
-        let testPoint = SKShapeNode(circleOfRadius: 20)
-        testPoint.name = "testPoint"
-        testPoint.fillColor = .yellow
-        testPoint.strokeColor = .yellow
-
-        overlay.addChild(testPoint)
-
         sceneView.overlaySKScene = overlay
 
-        startCalibration()
+        // startCalibration()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -111,8 +102,8 @@ extension ViewController: ARSCNViewDelegate {
                 // Access UI-related properties on the main thread
                 let point = self.eyeTracker.getLookOnScreen(using: faceAnchor)
                 if let point = point {
-                    self.updatePoints(with: point)
-                    lookPoint.position = self.points.mean().clamped(to: UIScreen.main.bounds)
+                    self.updatePoints(with: point, for: faceAnchor)
+                    lookPoint.position = self.points.map { $0.0 }.mean().clamped(to: UIScreen.main.bounds)
                 }
             }
         }
@@ -139,42 +130,49 @@ extension ViewController: ARSCNViewDelegate {
                                         .removeExistingAnchors])
     }
 
-    private func updatePoints(with point: CGPoint) {
+    private func updatePoints(with point: CGPoint, for faceAnchor: ARFaceAnchor) {
         if points.count >= maxPoints {
             points.removeFirst()
         }
-        points.append(point)
+        points.append((point, faceAnchor))
     }
 }
 
 // MARK: - CalibrationDelegate
 
 extension ViewController: CalibrationDelegate {
-    func startCalibration() {
-        guard let overlay = sceneView.overlaySKScene as? CalibrationScene else { return }
-        overlay.startCalibration()
-    }
+    func getCalibrationData(
+        of name: String, for target: CGPoint, position: HeadPosition, distance: PositionToScreen
+    ) -> [CalibrationData]? {
+        if points.isEmpty { return nil }
 
-    func stopCalibration() {
-        guard let overlay = sceneView.overlaySKScene as? CalibrationScene else { return }
-        overlay.stopCalibration()
-    }
-
-    func getCalibrationData(for target: CGPoint) -> CalibrationData? {
-        if points.isEmpty {
-            return nil
+        return points.map { gazePoint, faceAnchor in
+            CalibrationData(
+                username: name,
+                deviceName: Device.name ?? "unknown",
+                position: position,
+                distance: distance,
+                timestamp: Date(),
+                targetPoint: target,
+                gazePoint: gazePoint,
+                faceTransform: faceAnchor.transform,
+                rightEyeTransform: faceAnchor.rightEyeTransform,
+                leftEyeTransform: faceAnchor.leftEyeTransform
+            )
         }
+    }
 
-        guard let faceAnchor = lastFaceAnchor else { return nil }
-        // TODO: mean or last point?
-        let gazePoint = points.mean()
-        return CalibrationData(
-            targetPoint: target,
-            gazePoint: gazePoint,
-            faceTransform: faceAnchor.transform,
-            rightEyeTransform: faceAnchor.rightEyeTransform,
-            leftEyeTransform: faceAnchor.leftEyeTransform
-        )
+    func onCalibrationStateChange(state: CalibrationState) {
+        print("Calibration state changed to:\n\(state)")
+
+        switch state {
+        case .calibration:
+            // Hide look point during calibration
+            sceneView.overlaySKScene?.childNode(withName: "lookPoint")?.isHidden = true
+        default:
+            // Show look point after calibration
+            sceneView.overlaySKScene?.childNode(withName: "lookPoint")?.isHidden = false
+        }
     }
 }
 

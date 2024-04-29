@@ -74,8 +74,6 @@ class AREyeTracker {
      - Returns: The look point on the screen
      */
     func getLookOnScreen(using faceAnchor: ARFaceAnchor) -> CGPoint? {
-        // let cameraTransform = screen.camera.transform
-
         let eyeCameraPosition =
             simd_make_float3(faceAnchor.rightEyeTransform.columns.3).toWorldCoordinate(using: faceAnchor.transform)
 

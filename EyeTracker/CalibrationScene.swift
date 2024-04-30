@@ -112,9 +112,7 @@ class CalibrationScene: SKScene {
         })
 
         // Cancel button
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [self] _ in
-            // simply close the alert
-        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
 
         guard let viewController = view?.window?.rootViewController else { return }
         viewController.present(alert, animated: true)

@@ -249,7 +249,7 @@ class CalibrationScene: SKScene {
     }
 
     func createNavigator() -> SKShapeNode {
-        let background = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 400, height: 200), cornerRadius: 10)
+        let background = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 400, height: 225), cornerRadius: 10)
         background.fillColor = .white
         background.strokeColor = .clear
         background.name = "navigator"

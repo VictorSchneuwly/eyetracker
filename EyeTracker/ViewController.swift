@@ -15,7 +15,14 @@ class ViewController: UIViewController {
 
     private let axesUrl = Bundle.main.url(forResource: "axes", withExtension: "scn")!
     private var eyeTracker = AREyeTracker()
-    private var points: [(CGPoint, ARFaceAnchor)] = []
+
+    private struct StoredValues {
+        let point: CGPoint
+        let faceAnchor: ARFaceAnchor
+        let timestamp: Date
+    }
+
+    private var storedValues: [StoredValues] = []
     private let maxPoints = 10
 
     override func viewDidLoad() {
@@ -114,8 +121,8 @@ extension ViewController: ARSCNViewDelegate {
                 // Access UI-related properties on the main thread
                 let point = self.eyeTracker.getLookOnScreen(using: faceAnchor)
                 if let point = point {
-                    self.updatePoints(with: point, for: faceAnchor)
-                    lookPoint.position = self.points.map { $0.0 }.mean().clamped(to: UIScreen.main.bounds)
+                    self.updateStoredValues(with: point, for: faceAnchor)
+                    lookPoint.position = self.storedValues.map { $0.point }.mean().clamped(to: UIScreen.main.bounds)
                 }
             }
         }
@@ -142,11 +149,11 @@ extension ViewController: ARSCNViewDelegate {
                                         .removeExistingAnchors])
     }
 
-    private func updatePoints(with point: CGPoint, for faceAnchor: ARFaceAnchor) {
-        if points.count >= maxPoints {
-            points.removeFirst()
+    private func updateStoredValues(with point: CGPoint, for faceAnchor: ARFaceAnchor) {
+        if storedValues.count >= maxPoints {
+            storedValues.removeFirst()
         }
-        points.append((point, faceAnchor))
+        storedValues.append(StoredValues(point: point, faceAnchor: faceAnchor, timestamp: Date()))
     }
 }
 
@@ -156,21 +163,21 @@ extension ViewController: CalibrationDelegate {
     func getCalibrationData(
         of name: String, for target: CGPoint, position: HeadPosition, distance: PositionToScreen
     ) -> [CalibrationData]? {
-        if points.isEmpty { return nil }
+        if storedValues.isEmpty { return nil }
 
-        return points.map { gazePoint, faceAnchor in
+        return storedValues.map { storedValue in
             CalibrationData(
                 username: name,
                 deviceName: Device.name ?? "unknown",
                 position: position,
                 distance: distance,
-                timestamp: Date(),
+                timestamp: storedValue.timestamp,
                 targetPoint: target,
-                gazePoint: gazePoint,
-                faceTransform: faceAnchor.transform,
-                rightEyeTransform: faceAnchor.rightEyeTransform,
-                leftEyeTransform: faceAnchor.leftEyeTransform,
-                lookAtPoint: faceAnchor.lookAtPoint
+                gazePoint: storedValue.point,
+                faceTransform: storedValue.faceAnchor.transform,
+                rightEyeTransform: storedValue.faceAnchor.rightEyeTransform,
+                leftEyeTransform: storedValue.faceAnchor.leftEyeTransform,
+                lookAtPoint: storedValue.faceAnchor.lookAtPoint
             )
         }
     }

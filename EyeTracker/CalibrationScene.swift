@@ -135,24 +135,20 @@ class CalibrationScene: SKScene {
         background.strokeColor = .clear
 
         // Create the instructional text labels
-        let positionToScreenText = SKLabelNode(text: "First instruction")
-        positionToScreenText.name = "positionToScreen"
-        positionToScreenText.fontColor = .black
-        positionToScreenText.fontSize = 20
-        positionToScreenText.position = CGPoint(x: 0, y: 40)
+        let positionToScreenText = createLabel(
+            called: "positionToScreen", with: "First instruction", at: CGPoint(x: 0, y: 40)
+        )
+        positionToScreenText.horizontalAlignmentMode = .center
 
-        let headPositionText = SKLabelNode(text: "Second instruction")
-        headPositionText.name = "headPosition"
-        headPositionText.fontColor = .black
-        headPositionText.fontSize = 20
-        headPositionText.position = CGPoint(x: 0, y: 10)
+        let headPositionText = createLabel(
+            called: "headPosition", with: "Second instruction", at: CGPoint(x: 0, y: 10)
+        )
+        headPositionText.horizontalAlignmentMode = .center
 
-        let countdownText = SKLabelNode(text: "Countdown")
-        countdownText.name = "countdown"
-        countdownText.fontColor = .black
-        countdownText.fontSize = 30 // Larger font size
-        countdownText.fontName = "Helvetica-Bold" // Using a bold font
-        countdownText.position = CGPoint(x: 0, y: -40)
+        let countdownText = createLabel(
+            called: "countdown", with: "Countdown", at: CGPoint(x: 0, y: -40), fontSize: 30, bold: true
+        )
+        countdownText.horizontalAlignmentMode = .center
 
         // Add labels as children to the background node
         background.addChild(positionToScreenText)
@@ -328,9 +324,7 @@ class CalibrationScene: SKScene {
         label.horizontalAlignmentMode = .left
         label.position = position
         label.name = name
-        if bold {
-            label.fontName = "Helvetica-Bold"
-        }
+        label.fontName = bold ? "Helvetica-Bold" : "Helvetica"
 
         return label
     }

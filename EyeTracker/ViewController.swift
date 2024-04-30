@@ -45,7 +45,9 @@ class ViewController: UIViewController {
 
         sceneView.overlaySKScene = overlay
 
-        // startCalibration()
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(appWillTerminate), name: UIApplication.willTerminateNotification, object: nil
+        )
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +73,16 @@ class ViewController: UIViewController {
 
         // Pause the view's session
         sceneView.session.pause()
+    }
+
+    @objc func appWillTerminate() {
+        // Handle app termination, like saving data or cleaning up resources
+        let calibrationScene = sceneView.overlaySKScene as? CalibrationScene
+        calibrationScene?.stopCalibration()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 

@@ -64,6 +64,9 @@ class CalibrationScene: SKScene {
     }
 
     func stopCalibration() {
+        // exit early if we are in the base state
+        if case .base = currentState { return }
+
         isUserInteractionEnabled = false
         // Remove the target
         target.isHidden = true

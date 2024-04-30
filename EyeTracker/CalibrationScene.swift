@@ -36,14 +36,14 @@ class CalibrationScene: SKScene {
         // Setup ui
         target.name = "target"
         target.fillColor = .red
-        target.strokeColor = .red
+        target.strokeColor = .yellow
         target.lineWidth = 50
         target.zPosition = 1
         target.isHidden = true
         addChild(target)
 
         instruction = createInstruction(size: CGSize(width: size.width * 0.6, height: 200))
-        instruction.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        instruction.position = CGPoint(x: size.width / 2, y: size.height / 2 - 200)
         addChild(instruction)
 
         navigator = createNavigator()
@@ -194,7 +194,7 @@ class CalibrationScene: SKScene {
             SKAction.run {
                 // reset the font size
                 countdownText?.fontSize = countdownTextFontSize ?? 30
-                self.target.fillColor = .yellow
+                self.target.fillColor = .orange
             },
             SKAction.wait(forDuration: 1),
             SKAction.run {

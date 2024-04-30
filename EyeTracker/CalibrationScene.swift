@@ -13,6 +13,7 @@ class CalibrationScene: SKScene {
 
     private let target = SKShapeNode(circleOfRadius: 75)
     private var instruction: SKShapeNode!
+    private var navigator: SKShapeNode!
 
     private var calibrationPoints: [CGPoint] = []
     private var currentPointIndex = 0
@@ -44,6 +45,10 @@ class CalibrationScene: SKScene {
         instruction = createInstruction(size: CGSize(width: size.width * 0.6, height: 200))
         instruction.position = CGPoint(x: size.width / 2, y: size.height / 2)
         addChild(instruction)
+
+        navigator = createNavigator()
+        navigator.position = CGPoint(x: (size.width - 400) / 2, y: size.height - 250)
+        addChild(navigator)
 
         // Add the points to the list
         calibrationPoints = createCalibrationPoints()
@@ -198,6 +203,8 @@ class CalibrationScene: SKScene {
         ])
     }
 
+    // MARK: - User Interface
+
     private func updateUI(for state: CalibrationState) {
         guard let instruction = instruction else { return }
         let positionToScreenText = instruction.childNode(withName: "positionToScreen") as? SKLabelNode
@@ -218,6 +225,80 @@ class CalibrationScene: SKScene {
         default:
             break
         }
+    }
+
+    func createNavigator() -> SKShapeNode {
+        let background = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 400, height: 200), cornerRadius: 10)
+        background.fillColor = .white
+        background.strokeColor = .clear
+        background.name = "navigator"
+
+        // Setup Point Number Label
+        let pointNumberLabel = createLabel(
+            called: "pointNumberLabel",
+            with: "Point number: \(currentPointIndex + 1)/9",
+            at: CGPoint(x: 10, y: 175),
+            bold: true
+        )
+
+        // Setup HeadPosition Label
+        let headPositionLabel = createLabel(
+            called: "headPositionLabel",
+            with: "Head Position:",
+            at: CGPoint(x: 10, y: 125),
+            bold: true
+        )
+
+        // Setup PositionToScreen Label
+        let positionToScreenLabel = createLabel(
+            called: "positionToScreenLabel",
+            with: "Position to Screen:",
+            at: CGPoint(x: 10, y: 75),
+            bold: true
+        )
+
+        // Setup validation button
+        let validateButton = createLabel(
+            called: "validateButton",
+            with: "Validate",
+            at: CGPoint(x: 250, y: 25),
+            bold: true
+        )
+        validateButton.fontColor = .blue
+
+        // Setup cancel button
+        let cancelButton = createLabel(
+            called: "cancelButton",
+            with: "Cancel",
+            at: CGPoint(x: 80, y: 25),
+            bold: true
+        )
+        cancelButton.fontColor = .red
+
+        // Add the labels and buttons to the background node
+        background.addChild(pointNumberLabel)
+        background.addChild(headPositionLabel)
+        background.addChild(positionToScreenLabel)
+        background.addChild(validateButton)
+        background.addChild(cancelButton)
+
+        return background
+    }
+
+    private func createLabel(
+        called name: String, with text: String, at position: CGPoint, fontSize: CGFloat = 20, bold: Bool = false
+    ) -> SKLabelNode {
+        let label = SKLabelNode(text: text)
+        label.fontSize = fontSize
+        label.fontColor = .black
+        label.horizontalAlignmentMode = .left
+        label.position = position
+        label.name = name
+        if bold {
+            label.fontName = "Helvetica-Bold"
+        }
+
+        return label
     }
 
     // MARK: - Touch handling

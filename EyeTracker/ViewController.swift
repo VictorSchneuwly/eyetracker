@@ -157,7 +157,8 @@ extension ViewController: CalibrationDelegate {
                 gazePoint: gazePoint,
                 faceTransform: faceAnchor.transform,
                 rightEyeTransform: faceAnchor.rightEyeTransform,
-                leftEyeTransform: faceAnchor.leftEyeTransform
+                leftEyeTransform: faceAnchor.leftEyeTransform,
+                lookAtPoint: faceAnchor.lookAtPoint
             )
         }
     }

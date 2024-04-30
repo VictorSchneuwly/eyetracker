@@ -78,6 +78,7 @@ struct CalibrationData {
     let faceTransform: simd_float4x4
     let rightEyeTransform: simd_float4x4
     let leftEyeTransform: simd_float4x4
+    let lookAtPoint: simd_float3
 
     static let csvHeader =
         "username, deviceName, position, distance, timestamp,"
@@ -94,6 +95,7 @@ struct CalibrationData {
             + "leftEyeTransform_1_x, leftEyeTransform_1_y, leftEyeTransform_1_z, leftEyeTransform_1_w,"
             + "leftEyeTransform_2_x, leftEyeTransform_2_y, leftEyeTransform_2_z, leftEyeTransform_2_w,"
             + "leftEyeTransform_3_x, leftEyeTransform_3_y, leftEyeTransform_3_z, leftEyeTransform_3_w"
+            + "lookAtPointX, lookAtPointY, lookAtPointZ"
 
     func csvRepresentation() -> String {
         func extractValues(from transform: simd_float4x4) -> [Float] {
@@ -113,6 +115,7 @@ struct CalibrationData {
             username, deviceName, position.rawValue, distance.rawValue, timestamp.timeIntervalSince1970,
             targetPoint.x, targetPoint.y, gazePoint.x, gazePoint.y,
         ] + faceTransformValues + rightEyeTransformValues + leftEyeTransformValues
+            + [lookAtPoint.x, lookAtPoint.y, lookAtPoint.z]
 
         return values.map { "\($0)" }.joined(separator: ",")
     }

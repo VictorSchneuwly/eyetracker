@@ -206,25 +206,56 @@ class CalibrationScene: SKScene {
     // MARK: - User Interface
 
     private func updateUI(for state: CalibrationState) {
-        guard let instruction = instruction else { return }
-        let positionToScreenText = instruction.childNode(withName: "positionToScreen") as? SKLabelNode
-        let headPositionText = instruction.childNode(withName: "headPosition") as? SKLabelNode
-        let countdownText = instruction.childNode(withName: "countdown") as? SKLabelNode
+        guard let instruction = instruction,
+              let positionToScreenText = instruction.childNode(withName: "positionToScreen") as? SKLabelNode,
+              let headPositionText = instruction.childNode(withName: "headPosition") as? SKLabelNode,
+              let countdownText = instruction.childNode(withName: "countdown") as? SKLabelNode
+        else { return }
 
         switch state {
         case .base:
             // Write the initial instructions
-            positionToScreenText?.text = "While looking at the target, hold the device at the specified distance."
-            headPositionText?.text = "For each point, move your head in the direction indicated."
-            countdownText?.text = "Press on the screen to start the calibration"
+            positionToScreenText.text = "While looking at the target, hold the device at the specified distance."
+            headPositionText.text = "For each point, move your head in the direction indicated."
+            countdownText.text = "Press on the screen to start the calibration"
 
-        case let .calibration(_, headPosition, positionToScreen):
-            positionToScreenText?.text = positionToScreen.instruction()
-            headPositionText?.text = headPosition.instruction()
-            countdownText?.text = "Press on the screen to start the countdown"
+            target.isHidden = true
+
+            // simply hide the navigator
+            navigator.isHidden = true
+
+        case let .calibration(position, headPosition, positionToScreen):
+            positionToScreenText.text = positionToScreen.instruction()
+            headPositionText.text = headPosition.instruction()
+            countdownText.text = "Press on the screen to start the countdown"
+
+            // update the point
+            target.isHidden = false
+            target.position = position
+
+            navigator.isHidden = false
+            updateNavigatorLabels(headPosition: headPosition, positionToScreen: positionToScreen)
         default:
             break
         }
+    }
+
+    private func updateNavigatorLabels(headPosition: HeadPosition, positionToScreen: PositionToScreen) {
+        guard let navigator = navigator,
+              let pointNumberLabel = navigator.childNode(withName: "pointNumberLabel") as? SKLabelNode,
+              let headPositionLabel = navigator.childNode(withName: "headPositionLabel") as? SKLabelNode,
+              let positionToScreenLabel = navigator.childNode(withName: "positionToScreenLabel") as? SKLabelNode,
+              let validateButton = navigator.childNode(withName: "validateButton") as? SKLabelNode,
+              let cancelButton = navigator.childNode(withName: "cancelButton") as? SKLabelNode
+        else { return }
+
+        pointNumberLabel.text = "Point number: \(currentPointIndex + 1)"
+        headPositionLabel.text = "Head Position: \(headPosition.rawValue)"
+        positionToScreenLabel.text = "Position to Screen: \(positionToScreen.rawValue)"
+
+        // Hide the buttons
+        validateButton.isHidden = true
+        cancelButton.isHidden = true
     }
 
     func createNavigator() -> SKShapeNode {
@@ -236,7 +267,7 @@ class CalibrationScene: SKScene {
         // Setup Point Number Label
         let pointNumberLabel = createLabel(
             called: "pointNumberLabel",
-            with: "Point number: \(currentPointIndex + 1)/9",
+            with: "Point number: \(currentPointIndex + 1)",
             at: CGPoint(x: 10, y: 175),
             bold: true
         )
@@ -265,6 +296,7 @@ class CalibrationScene: SKScene {
             bold: true
         )
         validateButton.fontColor = .blue
+        validateButton.isHidden = true
 
         // Setup cancel button
         let cancelButton = createLabel(
@@ -274,6 +306,7 @@ class CalibrationScene: SKScene {
             bold: true
         )
         cancelButton.fontColor = .red
+        cancelButton.isHidden = true
 
         // Add the labels and buttons to the background node
         background.addChild(pointNumberLabel)
@@ -304,7 +337,6 @@ class CalibrationScene: SKScene {
     // MARK: - Touch handling
 
     override func touchesBegan(_ touches: Set<UITouch>, with _: UIEvent?) {
-        if isCountdownRunning { return }
         guard let touch = touches.first else { return }
 
         switch currentState {
@@ -312,6 +344,15 @@ class CalibrationScene: SKScene {
             // Start the calibration
             startCalibration()
         case let .calibration(_, headPosition, positionToScreen):
+            // Check if touch is within the navigator
+            let location = touch.location(in: self)
+            if navigator.contains(location) {
+                let localLocation = touch.location(in: navigator)
+                handleNavigatorTouch(at: localLocation)
+                return
+            }
+
+            if isCountdownRunning { return }
 
             instruction.childNode(withName: "countdown")?.run(countdownActions) { [self] in
                 // Store the calibration data
@@ -336,7 +377,6 @@ class CalibrationScene: SKScene {
                 if nextHeadPosition == .middle {
                     currentPointIndex += 1
                     currentPointIndex %= calibrationPoints.count
-                    target.position = calibrationPoints[currentPointIndex]
                 }
 
                 // once we did all head positions for all points we need to change our position to the screen
@@ -351,7 +391,7 @@ class CalibrationScene: SKScene {
                     stopCalibration()
                 } else {
                     currentState = .calibration(
-                        target.position, nextHeadPosition, nextPositionToScreen
+                        calibrationPoints[currentPointIndex], nextHeadPosition, nextPositionToScreen
                     )
                 }
 
@@ -359,6 +399,58 @@ class CalibrationScene: SKScene {
             }
         default:
             return
+        }
+    }
+
+    private func handleNavigatorTouch(at location: CGPoint) {
+        if let node = navigator.atPoint(location) as? SKLabelNode,
+           let pointNumberLabel = navigator.childNode(withName: "pointNumberLabel") as? SKLabelNode,
+           let headPositionLabel = navigator.childNode(withName: "headPositionLabel") as? SKLabelNode,
+           let positionToScreenLabel = navigator.childNode(withName: "positionToScreenLabel") as? SKLabelNode,
+           let validateButton = navigator.childNode(withName: "validateButton") as? SKLabelNode,
+           let cancelButton = navigator.childNode(withName: "cancelButton") as? SKLabelNode
+        {
+            // get the selected values from the labels
+            let nextPointPosition = Int(
+                pointNumberLabel.text!.split(separator: ":")
+                    .last!.trimmingCharacters(in: .whitespaces)
+            )!
+            let headPosition = HeadPosition(
+                rawValue: headPositionLabel.text!.split(separator: ":")
+                    .last!.trimmingCharacters(in: .whitespaces)
+            )!
+            let positionToScreen = PositionToScreen(
+                rawValue: positionToScreenLabel.text!.split(separator: ":")
+                    .last!.trimmingCharacters(in: .whitespaces)
+            )!
+
+            // show the buttons
+            validateButton.isHidden = false
+            cancelButton.isHidden = false
+
+            switch node.name {
+            case "validateButton":
+                currentPointIndex = nextPointPosition - 1
+                currentState = .calibration(
+                    calibrationPoints[currentPointIndex], headPosition, positionToScreen
+                )
+
+            case "cancelButton":
+                // simply reset the labels
+                updateUI(for: currentState)
+
+            case "pointNumberLabel":
+                pointNumberLabel.text = "Point number: \((nextPointPosition % calibrationPoints.count) + 1)"
+
+            case "headPositionLabel":
+                headPositionLabel.text = "Head Position: \(headPosition.next().rawValue)"
+
+            case "positionToScreenLabel":
+                positionToScreenLabel.text = "Position to Screen: \(positionToScreen.next().rawValue)"
+
+            default:
+                break
+            }
         }
     }
 

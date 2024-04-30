@@ -59,7 +59,6 @@ class CalibrationScene: SKScene {
 
     func startCalibration() {
         isUserInteractionEnabled = true
-        showUI()
         askForUsername()
     }
 
@@ -87,12 +86,6 @@ class CalibrationScene: SKScene {
         }
 
         currentState = .base
-    }
-
-    private func showUI() {
-        // Setup target
-        target.position = calibrationPoints[currentPointIndex]
-        target.isHidden = false
     }
 
     private func askForUsername() {

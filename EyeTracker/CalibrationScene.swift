@@ -11,7 +11,7 @@ import UIKit
 class CalibrationScene: SKScene {
     var calibrationDelegate: CalibrationDelegate?
 
-    private let target = SKShapeNode(circleOfRadius: 25)
+    private let target = SKShapeNode(circleOfRadius: 75)
     private var instruction: SKShapeNode!
 
     private var calibrationPoints: [CGPoint] = []
@@ -35,8 +35,11 @@ class CalibrationScene: SKScene {
         // Setup ui
         target.name = "target"
         target.fillColor = .red
-        target.strokeColor = .clear
+        target.strokeColor = .red
+        target.lineWidth = 50
         target.zPosition = 1
+        target.isHidden = true
+        addChild(target)
 
         instruction = createInstruction(size: CGSize(width: size.width * 0.6, height: 200))
         instruction.position = CGPoint(x: size.width / 2, y: size.height / 2)
@@ -57,7 +60,8 @@ class CalibrationScene: SKScene {
 
     func stopCalibration() {
         isUserInteractionEnabled = false
-        removeAllChildren()
+        // Remove the target
+        target.isHidden = true
 
         // export the calibration data into the EyeTracker folder
         do {
@@ -80,7 +84,7 @@ class CalibrationScene: SKScene {
     private func showUI() {
         // Setup target
         target.position = calibrationPoints[currentPointIndex]
-        addChild(target)
+        target.isHidden = false
     }
 
     private func askForUsername() {

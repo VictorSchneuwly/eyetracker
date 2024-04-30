@@ -94,7 +94,7 @@ struct CalibrationData {
             + "leftEyeTransform_0_x, leftEyeTransform_0_y, leftEyeTransform_0_z, leftEyeTransform_0_w,"
             + "leftEyeTransform_1_x, leftEyeTransform_1_y, leftEyeTransform_1_z, leftEyeTransform_1_w,"
             + "leftEyeTransform_2_x, leftEyeTransform_2_y, leftEyeTransform_2_z, leftEyeTransform_2_w,"
-            + "leftEyeTransform_3_x, leftEyeTransform_3_y, leftEyeTransform_3_z, leftEyeTransform_3_w"
+            + "leftEyeTransform_3_x, leftEyeTransform_3_y, leftEyeTransform_3_z, leftEyeTransform_3_w,"
             + "lookAtPointX, lookAtPointY, lookAtPointZ"
 
     func csvRepresentation() -> String {

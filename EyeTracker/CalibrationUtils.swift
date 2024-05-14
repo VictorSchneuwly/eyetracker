@@ -10,7 +10,7 @@ import ARKit
 enum CalibrationState {
     case base
     case calibration(CGPoint, HeadPosition, PositionToScreen)
-    case done
+    case done([CalibrationData])
 }
 
 enum HeadPosition: String, CaseIterable {

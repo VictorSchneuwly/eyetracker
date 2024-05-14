@@ -15,6 +15,7 @@ class ViewController: UIViewController {
 
     private let axesUrl = Bundle.main.url(forResource: "axes", withExtension: "scn")!
     private var eyeTracker = AREyeTracker()
+    private var calibrator: Calibrator?
 
     private struct StoredValues {
         let point: CGPoint
@@ -121,7 +122,9 @@ extension ViewController: ARSCNViewDelegate {
             let point = eyeTracker.getLookOnScreen(using: faceAnchor)
             if let point = point {
                 updateStoredValues(with: point, for: faceAnchor)
-                lookPoint.position = storedValues.map { $0.point }.mean().clamped(to: UIScreen.main.bounds)
+                let mean = storedValues.map { $0.point }.mean()
+                lookPoint.position = (calibrator?.calibrate(mean) ?? mean)
+                    .clamped(to: UIScreen.main.bounds)
             }
         }
     }
@@ -189,12 +192,15 @@ extension ViewController: CalibrationDelegate {
 
         switch state {
         case .calibration:
-            // Hide look point during calibration
-            sceneView.overlaySKScene?.childNode(withName: "lookPoint")?.isHidden = true
-        default:
-            // Show look point after calibration
-            sceneView.overlaySKScene?.childNode(withName: "lookPoint")?.isHidden = false
+            // remove the calibrator
+            calibrator = nil
+
+        case let .done(calibrationData):
+            calibrator = AverageOffsetCalibrator(calibrationData: calibrationData)
         }
+
+        // Hide look point during calibration
+        sceneView.overlaySKScene?.childNode(withName: "lookPoint")?.isHidden = state == .calibration
     }
 }
 

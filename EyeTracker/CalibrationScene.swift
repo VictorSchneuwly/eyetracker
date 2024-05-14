@@ -405,7 +405,7 @@ class CalibrationScene: SKScene {
 
                 // once we circled through everything we are done
                 if currentPointIndex == 0 && nextHeadPosition == .middle && nextPositionToScreen == .regular {
-                    currentState = .done
+                    currentState = .done(calibrationDatas)
                     stopCalibration()
                 } else {
                     currentState = .calibration(

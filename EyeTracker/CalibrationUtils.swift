@@ -44,7 +44,7 @@ enum HeadPosition: String, CaseIterable {
 
 enum PositionToScreen: String, CaseIterable {
     case regular = "Regular"
-    case armsExtended = "Arms Extended"
+    // case armsExtended = "Arms Extended"
     case close = "Close"
 
     func next() -> PositionToScreen {
@@ -57,8 +57,8 @@ enum PositionToScreen: String, CaseIterable {
         switch self {
         case .regular:
             return "Hold your device at a regular distance from your face."
-        case .armsExtended:
-            return "Hold your device at arms extended distance from your face."
+        // case .armsExtended:
+        //     return "Hold your device at arms extended distance from your face."
         case .close:
             return "Hold your device close to your face."
         }

@@ -14,6 +14,7 @@ class CalibrationScene: SKScene {
     private let target = SKShapeNode(circleOfRadius: 75)
     private var instruction: SKShapeNode!
     private var navigator: SKShapeNode!
+    private var saveButton: SKShapeNode!
 
     private var calibrationPoints: [CGPoint] = []
     private var currentPointIndex = 0
@@ -50,6 +51,10 @@ class CalibrationScene: SKScene {
         navigator.position = CGPoint(x: (size.width - 400) / 2, y: size.height - 250)
         addChild(navigator)
 
+        saveButton = createSaveButton()
+        saveButton.position = CGPoint(x: size.width - 275, y: size.height - 150)
+        addChild(saveButton)
+
         // Add the points to the list
         calibrationPoints = createCalibrationPoints()
 
@@ -70,6 +75,12 @@ class CalibrationScene: SKScene {
         target.isHidden = true
 
         // export the calibration data into the EyeTracker folder
+        saveData()
+
+        currentState = .base
+    }
+
+    private func saveData() {
         do {
             // Use a timestamp to make sure the file is unique
             // use the format: yyyy-MM-dd-HH-mm-ss
@@ -83,8 +94,6 @@ class CalibrationScene: SKScene {
         } catch {
             print("Error exporting calibration data: \(error)")
         }
-
-        currentState = .base
     }
 
     private func askForUsername() {
@@ -209,9 +218,8 @@ class CalibrationScene: SKScene {
             countdownText.text = "Press on the screen to start the calibration"
 
             target.isHidden = true
-
-            // simply hide the navigator
             navigator.isHidden = true
+            saveButton.isHidden = true
 
         case let .calibration(position, headPosition, positionToScreen):
             positionToScreenText.text = positionToScreen.instruction()
@@ -224,6 +232,8 @@ class CalibrationScene: SKScene {
 
             navigator.isHidden = false
             updateNavigatorLabels(headPosition: headPosition, positionToScreen: positionToScreen)
+
+            saveButton.isHidden = false
         default:
             break
         }
@@ -307,6 +317,25 @@ class CalibrationScene: SKScene {
         return background
     }
 
+    private func createSaveButton() -> SKShapeNode {
+        let background = SKShapeNode(rect: CGRect(x: 0, y: 0, width: 150, height: 75), cornerRadius: 10)
+        background.fillColor = .blue
+        background.strokeColor = .clear
+        background.name = "saveButton"
+
+        let saveLabel = createLabel(
+            called: "saveLabel",
+            with: "Save",
+            at: CGPoint(x: background.frame.width / 2, y: background.frame.height / 2),
+            bold: true
+        )
+        saveLabel.fontColor = .white
+        saveLabel.horizontalAlignmentMode = .center
+
+        background.addChild(saveLabel)
+        return background
+    }
+
     private func createLabel(
         called name: String, with text: String, at position: CGPoint, fontSize: CGFloat = 20, bold: Bool = false
     ) -> SKLabelNode {
@@ -336,6 +365,9 @@ class CalibrationScene: SKScene {
             if navigator.contains(location) {
                 let localLocation = touch.location(in: navigator)
                 handleNavigatorTouch(at: localLocation)
+                return
+            } else if saveButton.contains(location) {
+                handleSaveButtonTouch()
                 return
             }
 
@@ -436,6 +468,19 @@ class CalibrationScene: SKScene {
 
             default:
                 break
+            }
+        }
+    }
+
+    private func handleSaveButtonTouch() {
+        // Stop the calibration
+        saveData()
+
+        // Change text to "Saved!" for 1 sec
+        if let saveLabel = saveButton.childNode(withName: "saveLabel") as? SKLabelNode {
+            saveLabel.text = "Saved!"
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                saveLabel.text = "Save"
             }
         }
     }

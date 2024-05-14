@@ -117,13 +117,11 @@ extension ViewController: ARSCNViewDelegate {
 
         // update the look point on the overlay
         if let lookPoint = sceneView.overlaySKScene?.childNode(withName: "lookPoint") {
-            DispatchQueue.main.async {
-                // Access UI-related properties on the main thread
-                let point = self.eyeTracker.getLookOnScreen(using: faceAnchor)
-                if let point = point {
-                    self.updateStoredValues(with: point, for: faceAnchor)
-                    lookPoint.position = self.storedValues.map { $0.point }.mean().clamped(to: UIScreen.main.bounds)
-                }
+            // Access UI-related properties on the main thread
+            let point = eyeTracker.getLookOnScreen(using: faceAnchor)
+            if let point = point {
+                updateStoredValues(with: point, for: faceAnchor)
+                lookPoint.position = storedValues.map { $0.point }.mean().clamped(to: UIScreen.main.bounds)
             }
         }
     }

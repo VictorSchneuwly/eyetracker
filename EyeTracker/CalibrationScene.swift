@@ -358,13 +358,12 @@ class CalibrationScene: SKScene {
 
                 calibrationDatas.append(contentsOf: calibrationData)
 
-                let nextHeadPosition = headPosition.next()
+                // Go to the next point
+                currentPointIndex += 1
+                currentPointIndex %= calibrationPoints.count
 
-                // once we saw all the head positions we need to change the target position
-                if nextHeadPosition == .middle {
-                    currentPointIndex += 1
-                    currentPointIndex %= calibrationPoints.count
-                }
+                // If we saw all the points, change the head position
+                let nextHeadPosition = currentPointIndex == 0 ? headPosition.next() : headPosition
 
                 // once we did all head positions for all points we need to change our position to the screen
                 let nextPositionToScreen =

@@ -140,6 +140,10 @@ extension ViewController: ARSCNViewDelegate {
 
     func sessionWasInterrupted(_: ARSession) {
         // Inform the user that the session has been interrupted, for example, by presenting an overlay
+
+        // Handle app termination, like saving data or cleaning up resources
+        let calibrationScene = sceneView.overlaySKScene as? CalibrationScene
+        calibrationScene?.stopCalibration()
     }
 
     func sessionInterruptionEnded(_ session: ARSession) {

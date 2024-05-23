@@ -31,7 +31,7 @@ class CalibrationData:
     face_transform: np.ndarray  # 4x4 matrix
     right_eye_transform: np.ndarray  # 4x4 matrix
     left_eye_transform: np.ndarray  # 4x4 matrix
-    # look_at_point: Tuple[float, float, float]
+    look_at_point: Tuple[float, float, float]
 
 
 def import_from_csv(filename: str) -> [CalibrationData]:
@@ -60,5 +60,5 @@ def extract_calibration_data(line: str) -> CalibrationData:
         face_transform=np.array([float(x) for x in data[9:25]]).reshape((4, 4)),
         right_eye_transform=np.array([float(x) for x in data[25:41]]).reshape((4, 4)),
         left_eye_transform=np.array([float(x) for x in data[41:57]]).reshape((4, 4)),
-        # look_at_point=(float(data[57]), float(data[58]), float(data[59])),
+        look_at_point=(float(data[57]), float(data[58]), float(data[59])),
     )

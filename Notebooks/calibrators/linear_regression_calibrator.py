@@ -38,10 +38,7 @@ class LinearRegressionCalibrator:
     def evaluate(self, test_data: List[CalibrationData]):
         X_test, y_test = self.__prepare_data(test_data)
         y_pred = self.model.predict(X_test)
-        print("X_test:\n", X_test)
-        print("true:\n", y_test)
-        print("pred:\n", y_pred)
         mse = mean_squared_error(y_test, y_pred)
         rmse = np.sqrt(mse)
         r2 = r2_score(y_test, y_pred)
-        return {"MSE": mse, "RMSE": rmse, "R²": r2}
+        return {"MSE": mse, "RMSE": rmse, "R2": r2}

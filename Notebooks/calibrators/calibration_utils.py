@@ -32,6 +32,7 @@ class CalibrationData:
     face_transform: np.ndarray  # 4x4 matrix
     right_eye_transform: np.ndarray  # 4x4 matrix
     left_eye_transform: np.ndarray  # 4x4 matrix
+    euler_angles: Tuple[float, float, float]
     look_at_point: Tuple[float, float, float]
 
 
@@ -61,7 +62,8 @@ def extract_calibration_data_from_line(line: str) -> CalibrationData:
         face_transform=np.array([float(x) for x in data[9:25]]).reshape((4, 4)),
         right_eye_transform=np.array([float(x) for x in data[25:41]]).reshape((4, 4)),
         left_eye_transform=np.array([float(x) for x in data[41:57]]).reshape((4, 4)),
-        look_at_point=(float(data[57]), float(data[58]), float(data[59])),
+        euler_angles=(float(data[57]), float(data[58]), float(data[59])),
+        look_at_point=(float(data[60]), float(data[61]), float(data[62])),
     )
 
 
@@ -106,6 +108,7 @@ def extract_calibration_data_from_row(row) -> CalibrationData:
                 ]
             ].tolist()
         ).reshape((4, 4)),
+        euler_angles=(float(row["roll"]), float(row["pitch"]), float(row["yaw"])),
         look_at_point=(
             float(row["lookAtPointX"]),
             float(row["lookAtPointY"]),
@@ -143,6 +146,9 @@ def calib_data_to_dataframe(data):
                     for i in range(4)
                     for (ji, j) in enumerate(["x", "y", "z", "w"])
                 },
+                "roll": d.euler_angles[0],
+                "pitch": d.euler_angles[1],
+                "yaw": d.euler_angles[2],
                 "lookAtPointX": d.look_at_point[0],
                 "lookAtPointY": d.look_at_point[1],
                 "lookAtPointZ": d.look_at_point[2],

@@ -7,8 +7,13 @@ from .calibration_utils import CalibrationData
 
 
 class LinearRegressionCalibrator:
-    def __init__(self, calibration_data: [CalibrationData]):
+    def __init__(
+        self,
+        calibration_data: [CalibrationData],
+        get_features: callable,
+    ):
         self.model = LinearRegression()
+        self.get_features = get_features
         self.__setup_model(calibration_data)
 
     def __setup_model(self, calibration_data: List[CalibrationData]):
@@ -20,17 +25,13 @@ class LinearRegressionCalibrator:
         y = []  # Targets
 
         for data in calibration_data:
-            features = list(data.gaze_point) + list(data.face_transform.flatten())
+            features = self.get_features(data)
             X.append(features)
             y.append(data.target_point)
 
         return np.array(X), np.array(y)
 
-    def calibrate(
-        self, point: Tuple[float, float], face_transform: np.ndarray
-    ) -> Tuple[float, float]:
-        features = list(point) + list(face_transform.flatten())
-
+    def calibrate(self, features) -> Tuple[float, float]:
         # Predict the target point using the model
         predicted_point = self.model.predict([features])
         return tuple(predicted_point[0])

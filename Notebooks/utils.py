@@ -15,31 +15,54 @@ def load_df(dir_path):
     Returns:
     pd.DataFrame: A DataFrame containing all the data from the CSV files.
     """
-    # List comprehension to load each CSV file into a DataFrame if it ends with .csv
-    dfs = [
-        pd.read_csv(os.path.join(dir_path, f))
-        for f in os.listdir(dir_path)
-        if f.endswith(".csv")
-    ]
+
+    def load_from_csv(file_path):
+        df = pd.read_csv(os.path.join(dir_path, file_path))
+        # Clean up the column names that seem to have leading spaces
+        df.columns = df.columns.str.strip()
+
+        if not all(col in df.columns for col in ["roll", "pitch", "yaw"]):
+            df[["roll", "pitch", "yaw"]] = df.apply(
+                lambda row: extract_euler_angles_from_matrix(
+                    extract_face_transform(row)
+                ),
+                axis=1,
+                result_type="expand",
+            )
+
+        return df
+
+    # Load each CSV file into a DataFrame
+    dfs = [load_from_csv(f) for f in os.listdir(dir_path) if f.endswith(".csv")]
 
     # Concatenate all DataFrames in the list into one DataFrame, if any are found
     return pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
 
 
 def extract_face_transform(row) -> np.ndarray:
-    return (
-        np.array(
-            row[
-                [
-                    f"faceTransform_{i}_{j}"
-                    for i in range(4)
-                    for j in ["x", "y", "z", "w"]
-                ]
-            ]
-        )
-        .reshape((4, 4))
-        .flatten()
-    )
+    return np.array(
+        row[[f"faceTransform_{i}_{j}" for i in range(4) for j in ["x", "y", "z", "w"]]]
+    ).reshape((4, 4))
+
+
+def extract_euler_angles_from_matrix(matrix):
+    r11, r12, r13, _ = matrix[0]
+    r21, r22, r23, _ = matrix[1]
+    r31, r32, r33, _ = matrix[2]
+
+    pitch = np.arctan2(-r31, np.sqrt(r32**2 + r33**2))
+
+    if np.isclose(pitch, np.pi / 2):
+        yaw = 0
+        roll = np.arctan2(r12, r22)
+    elif np.isclose(pitch, -np.pi / 2):
+        yaw = 0
+        roll = -np.arctan2(r12, r22)
+    else:
+        yaw = np.arctan2(r21, r11)
+        roll = np.arctan2(r32, r33)
+
+    return np.degrees(roll), np.degrees(pitch), np.degrees(yaw)
 
 
 def show_subplots(

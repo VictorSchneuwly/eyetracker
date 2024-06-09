@@ -194,13 +194,18 @@ extension ViewController: CalibrationDelegate {
         case .calibration:
             // remove the calibrator
             calibrator = nil
-
         case let .done(calibrationData):
             calibrator = AverageOffsetCalibrator(calibrationData: calibrationData)
+        default:
+            // No changes needed on other states
+            break
         }
 
         // Hide look point during calibration
-        sceneView.overlaySKScene?.childNode(withName: "lookPoint")?.isHidden = state == .calibration
+        sceneView.overlaySKScene?.childNode(withName: "lookPoint")?.isHidden = switch state {
+        case .calibration: true
+        default: false
+        }
     }
 }
 

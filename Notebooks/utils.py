@@ -39,9 +39,9 @@ def load_df(dir_path):
     return pd.concat(dfs, ignore_index=True) if dfs else pd.DataFrame()
 
 
-def extract_face_transform(row) -> np.ndarray:
+def extract_face_transform(row, type="faceTransform") -> np.ndarray:
     return np.array(
-        row[[f"faceTransform_{i}_{j}" for i in range(4) for j in ["x", "y", "z", "w"]]]
+        row[[f"{type}_{i}_{j}" for i in range(4) for j in ["x", "y", "z", "w"]]]
     ).reshape((4, 4))
 
 
@@ -87,7 +87,7 @@ def show_subplots(
     colors = colormaps[colormap]
 
     # Define colors for each position
-    positions = df["position"].unique()
+    positions = sorted(df["position"].unique())
     color_dict = {pos: colors(i) for i, pos in enumerate(positions)}
 
     # Define marker shapes for each distance
